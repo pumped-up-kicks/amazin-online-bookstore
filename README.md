@@ -1,3 +1,5 @@
+![Code Coverage](./.github/badges/jacoco.svg)
+
 # amazin-online-bookstore
 Its a bookstore
 
