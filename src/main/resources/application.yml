@@ -10,6 +10,10 @@ spring:
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    database: h2
+    show-sql: true
   h2:
     console:
       enabled: true
