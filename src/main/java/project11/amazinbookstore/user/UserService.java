@@ -1,4 +1,4 @@
-package project11.amazinbookstore.service;
+package project11.amazinbookstore.user;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +7,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;
-import project11.amazinbookstore.repository.UserRepository;
+import project11.amazinbookstore.user.UserRepository;
 import project11.amazinbookstore.user.Role;
 import project11.amazinbookstore.user.RegisteredUser;
 

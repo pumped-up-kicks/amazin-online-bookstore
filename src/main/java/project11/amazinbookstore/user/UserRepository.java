@@ -1,4 +1,4 @@
-package project11.amazinbookstore.repository;
+package project11.amazinbookstore.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

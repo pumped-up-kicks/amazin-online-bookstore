@@ -1,19 +1,17 @@
-package project11.amazinbookstore.controller;
+package project11.amazinbookstore.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import project11.amazinbookstore.service.UserService;
-import project11.amazinbookstore.user.Role;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class UserRegistrationController {
 
     private UserService userService;
 
     @Autowired
-    public Controller(UserService userService){
+    public UserRegistrationController(UserService userService){
         this.userService = userService;
     }
     @GetMapping("/")
