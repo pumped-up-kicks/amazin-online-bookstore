@@ -7,6 +7,6 @@ import project11.amazinbookstore.user.RegisteredUser;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<RegisteredUser, Integer> {
+public interface UserRepository extends JpaRepository<RegisteredUser, Long> {
     Optional<RegisteredUser> findByUsername(String username);
 }

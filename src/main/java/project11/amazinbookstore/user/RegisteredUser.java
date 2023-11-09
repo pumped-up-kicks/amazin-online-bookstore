@@ -21,7 +21,7 @@ public class RegisteredUser implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
 
