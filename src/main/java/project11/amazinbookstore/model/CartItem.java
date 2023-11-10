@@ -1,17 +1,13 @@
 package project11.amazinbookstore.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import project11.amazinbookstore.user.RegisteredUser;
-
-import java.util.List;
 
 @Entity
 @Table(name = "cart_items")
 @NoArgsConstructor
-public class ShoppingCart {
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

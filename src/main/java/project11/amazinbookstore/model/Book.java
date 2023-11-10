@@ -15,7 +15,7 @@ public class Book {
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="cart_item_id", referencedColumnName="id")
     @JsonManagedReference
-    private List<ShoppingCart> shoppingCart = new ArrayList<>();
+    private List<CartItem> cartItem = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +25,15 @@ public class Book {
     private String author;
     private String genres;
     private String picture;
-    private int quantity;
+    private int inventoryQuantity;
 
 
-    public Book(String title, String author, String genres, String picture, int quantity) {
+    public Book(String title, String author, String genres, String picture, int inventoryQuantity) {
         this.title = title;
         this.author = author;
         this.genres = genres;
         this.picture = picture;
-        this.quantity = quantity;
+        this.inventoryQuantity = inventoryQuantity;
     }
 
     public void setId(Long id) {
@@ -44,12 +44,12 @@ public class Book {
         return id;
     }
 
-    public List<ShoppingCart> getShoppingCart() {
-        return shoppingCart;
+    public List<CartItem> getCartItem() {
+        return cartItem;
     }
 
-    public void setShoppingCart(List<ShoppingCart> shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public void setCartItem(List<CartItem> cartItem) {
+        this.cartItem = cartItem;
     }
 
     public String getTitle() {
@@ -84,11 +84,11 @@ public class Book {
         this.picture = picture;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getInventoryQuantity() {
+        return inventoryQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setInventoryQuantity(int quantity) {
+        this.inventoryQuantity = quantity;
     }
 }
