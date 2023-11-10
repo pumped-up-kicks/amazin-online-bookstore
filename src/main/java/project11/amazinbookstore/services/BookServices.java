@@ -1,5 +1,7 @@
 package project11.amazinbookstore.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project11.amazinbookstore.model.Book;
@@ -11,6 +13,7 @@ import java.util.List;
 @Service
 public class BookServices {
     private BookRepository bookRepository;
+    private final Logger log = LoggerFactory.getLogger(BookServices.class);
 
     @Autowired
     public BookServices(BookRepository bookRepository) {
@@ -19,7 +22,7 @@ public class BookServices {
 
     public void addBook(Book book) {
         bookRepository.save(book);
-        System.out.println("Added new book with title " + book.getTitle());
+        log.info("Added new book with title " + book.getTitle());
     }
 
     public List<Book> getAllAvailableBooks(){
@@ -28,13 +31,13 @@ public class BookServices {
 
     public Book findBookById(Long bookId) {
         Book book = bookRepository.findById(bookId).orElse(null);
-        System.out.println("Found a book with title " + book.getTitle());
+        log.info("Found a book with title " + book.getTitle());
         return book;
     }
 
     public Book findBookByTitle(String title) {
         Book book = bookRepository.findByTitle(title).orElse(null);
-        System.out.println("Found a book with title " + book.getTitle());
+        log.info("Found a book with title " + book.getTitle());
         return book;
     }
 
@@ -51,6 +54,6 @@ public class BookServices {
             throw new IllegalStateException("Book with the id " + bookId + " does not exist");
         }
         bookRepository.deleteById(bookId);
-        System.out.println("Deleted a book with ID " + bookId);
+        log.info("Deleted a book with ID " + bookId);
     }
 }

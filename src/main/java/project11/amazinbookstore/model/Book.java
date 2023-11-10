@@ -1,18 +1,24 @@
 package project11.amazinbookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
+@Table(name = "book")
 @NoArgsConstructor
 public class Book {
 
-//    @ManyToOne
-//    @JoinColumn
-//    private ShoppingCart shoppingCart;
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="cart_item_id", referencedColumnName="id")
+    @JsonManagedReference
+    private List<ShoppingCart> shoppingCart = new ArrayList<>();
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -34,18 +40,17 @@ public class Book {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
 
-//    public ShoppingCart getShoppingCart() {
-//        return shoppingCart;
-//    }
-//
-//    public void setShoppingCart(ShoppingCart shoppingCart) {
-//        this.shoppingCart = shoppingCart;
-//    }
+    public List<ShoppingCart> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(List<ShoppingCart> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 
     public String getTitle() {
         return title;

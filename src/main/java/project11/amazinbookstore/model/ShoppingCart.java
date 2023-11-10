@@ -1,5 +1,6 @@
 package project11.amazinbookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -8,17 +9,21 @@ import project11.amazinbookstore.user.RegisteredUser;
 import java.util.List;
 
 @Entity
+@Table(name = "cart_items")
 @NoArgsConstructor
 public class ShoppingCart {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // Need relationship with registered user
 //    @OneToOne(fetch = FetchType.EAGER, mappedBy = "", targetEntity = RegisteredUser.class)
 //    private RegisteredUser user;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "shoppingCart", targetEntity = Book.class)
-//    @JsonManagedReference
-//    private List<Book> book;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JsonBackReference
+    private Book book;
 
     private int quantity;
 
@@ -27,7 +32,6 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
@@ -40,13 +44,14 @@ public class ShoppingCart {
 //        this.user = user;
 //    }
 
-//    public List<Book> getBook() {
-//        return book;
-//    }
-//
-//    public void setBook(List<Book> book) {
-//        this.book = book;
-//    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     public int getQuantity() {
         return quantity;
