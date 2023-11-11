@@ -1,4 +1,4 @@
-package project11.amazinbookstore.user;
+package project11.amazinbookstore.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
