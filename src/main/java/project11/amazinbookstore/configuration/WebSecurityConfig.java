@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 //                .cors(cors -> cors.disable())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/")
                         .failureUrl("/login?error")
                         .permitAll()
                 )
