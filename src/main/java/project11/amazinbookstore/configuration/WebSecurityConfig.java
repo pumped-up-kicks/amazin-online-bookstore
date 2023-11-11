@@ -23,8 +23,9 @@ public class WebSecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+                // Uncommented for testing
+//                .csrf(csrf -> csrf.disable())
+//                .cors(cors -> cors.disable())
                 .formLogin(withDefaults());
         return http.build();
     }
