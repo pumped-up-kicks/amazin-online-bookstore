@@ -28,7 +28,12 @@ public class WebSecurityConfig {
                 // Uncommented for testing
 //                .csrf(csrf -> csrf.disable())
 //                .cors(cors -> cors.disable())
-                .formLogin(withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout(withDefaults())
+                .rememberMe(withDefaults());
         return http.build();
     }
 
