@@ -33,29 +33,28 @@
                 <a class="nav-link disabled" href="/logout">Logout</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
-<div class="h-100 d-flex align-items-center justify-content-center" style="flex-direction: column;">
-    <form action="/processing-registration">
-        <h2>Register New Book Store Account</h2>
-        <div class="row mb-3">
-            <label for="formGroupExampleInput" class="form-label">Username</label>
-            <input type="text" class="form-control w-30" name="username" placeholder="Username">
-        </div>
-        <div class="row mb-3">
-            <label for="formGroupExampleInput" class="form-label">Password</label>
-            <input type="password" class="form-control w-30" name="password" placeholder="Password">
-        </div>
-        <div class="col-12">
-            <a href="/logged-in">
-                <button type="submit" class="btn btn-primary">Register</button>
-            </a>
-        </div>
-    </form>
+<div class="card col-6 align-middle offset-3 w-50 p-3">
+    <div class="card-body">
+        <form action="/processing-registration">
+            <h2 class="card-title">Register New Book Store Account</h2>
+            <div class="row mb-3">
+                <label for="formGroupExampleInput" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" placeholder="Username">
+            </div>
+            <div class="row mb-3">
+                <label for="formGroupExampleInput" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="d-grid gap-2">
+                <a class="row" href="/logged-in">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </a>
+                <p class="card-text">Already have an account? <a href="/login">Login!</a></p>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

@@ -48,8 +48,7 @@ public class WebSecurityConfig {
                             }
                         })
                         .permitAll()
-                )
-                .rememberMe(withDefaults());
+                );
         return http.build();
     }
 
