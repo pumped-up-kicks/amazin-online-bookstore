@@ -21,10 +21,9 @@ public class BookService {
     }
 
     public Book addBook(Book book) {
-        bookRepository.save(book);
-        log.info("Added new book with title " + book.getTitle());
-        // should never be null
-        return bookRepository.findById(book.getId()).orElse(null);
+        Book newBook = bookRepository.save(book);
+        log.info("Added new book with title " + newBook.getTitle());
+        return newBook;
     }
 
     public List<Book> getAllAvailableBooks(){

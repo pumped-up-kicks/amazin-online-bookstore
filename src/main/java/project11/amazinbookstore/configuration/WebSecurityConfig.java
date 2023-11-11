@@ -20,6 +20,7 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 antMatcher("/register"),
                                 antMatcher("/processing-registration")
+//                                ,antMatcher("**")
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
