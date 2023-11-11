@@ -1,4 +1,4 @@
 package project11.amazinbookstore.controller;
 
-public class UserInventoryController {
+public class CartItemController {
 }
