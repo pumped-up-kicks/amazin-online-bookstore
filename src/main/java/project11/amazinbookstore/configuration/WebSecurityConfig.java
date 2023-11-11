@@ -20,9 +20,13 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 antMatcher("/register"),
                                 antMatcher("/processing-registration")
+//                                ,antMatcher("**")
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                // Uncommented for testing
+//                .csrf(csrf -> csrf.disable())
+//                .cors(cors -> cors.disable())
                 .formLogin(withDefaults());
         return http.build();
     }
