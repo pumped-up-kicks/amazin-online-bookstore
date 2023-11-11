@@ -1,5 +1,6 @@
 package project11.amazinbookstore.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.repository.UserRepository;
 
 @Service
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -27,13 +29,17 @@ public class UserService {
     public void addNewUser(String username, String password, Role role) {
 
         if(userRepository.findByUsername(username).isPresent()){
+            log.info(String.format("User account %s already exists", username));
             return;
         }
+
         String hashedPassword = encoder.encode(password);
         RegisteredUser user = new RegisteredUser(username, hashedPassword, role);
         userRepository.save(user);
 
         manager.createUser(user);
+        log.info(String.format("Created account user %s", username));
+
     }
 
     /**
