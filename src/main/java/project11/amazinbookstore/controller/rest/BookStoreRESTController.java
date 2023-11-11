@@ -1,53 +1,52 @@
-package project11.amazinbookstore.controller;
+package project11.amazinbookstore.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.Book;
-import project11.amazinbookstore.services.BookServices;
+import project11.amazinbookstore.services.BookService;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("book")
-public class BookStoreAdminController {
-    private BookServices services;
+@RestController
+@RequestMapping("/api/book")
+public class BookStoreRESTController {
+    private BookService service;
 
     @Autowired
-    public BookStoreAdminController(BookServices services) {
-        this.services = services;
+    public BookStoreRESTController(BookService service) {
+        this.service = service;
     }
 
     @GetMapping("/all")
     public List<Book> getAllBooks() {
-        return services.getAllAvailableBooks();
+        return service.getAllAvailableBooks();
     }
 
     @GetMapping("/{id}")
     public Book findBookById(@PathVariable String id) {
-        return services.findBookById(Long.parseLong(id));
+        return service.findBookById(Long.parseLong(id));
     }
 
     // Not confident with this bc not sure we need
     // end point localhost:3000/book?title="naruto"
     @GetMapping
     public Book findBookByTitle(@RequestParam String title) {
-        return services.findBookByTitle(title);
+        return service.findBookByTitle(title);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/admin/add")
     public void addBook(@RequestBody Book book) {
-        services.addBook(book);
+        service.addBook(book);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     public void updateBook(@PathVariable String id, @RequestBody Book updateBook) {
-        services.updateBook(Long.parseLong(id), updateBook);
+        service.updateBook(Long.parseLong(id), updateBook);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/admin/{id}")
     public void deleteBook(@PathVariable String id) {
-        services.deleteBook(Long.parseLong(id));
+        service.deleteBook(Long.parseLong(id));
     }
 
 }

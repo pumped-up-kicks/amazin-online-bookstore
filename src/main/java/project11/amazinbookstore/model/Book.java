@@ -25,6 +25,8 @@ public class Book {
     private String author;
     private String genres;
     private String picture;
+
+    @Column(name = "inventory_quantity")
     private int inventoryQuantity;
 
 
