@@ -20,9 +20,11 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public void addBook(Book book) {
+    public Book addBook(Book book) {
         bookRepository.save(book);
         log.info("Added new book with title " + book.getTitle());
+        // should never be null
+        return bookRepository.findById(book.getId()).orElse(null);
     }
 
     public List<Book> getAllAvailableBooks(){
@@ -46,7 +48,7 @@ public class BookService {
     }
 
     @Transactional
-    public void updateBook(Long bookId, Book updatedBook) {
+    public Book updateBook(Long bookId, Book updatedBook) {
         Book existedBook = bookRepository.findById(bookId).orElse(null);
 
         if (existedBook != null) {
@@ -90,15 +92,18 @@ public class BookService {
                 log.info("Successfully updated inventory quantity " + updatedInventoryQuantity);
             }
         }
+        return existedBook;
     }
 
-    public void deleteBook(Long bookId) {
-        boolean exists = bookRepository.existsById(bookId);
+    public Book deleteBook(Long bookId) {
+        Book targetBook = bookRepository.findById(bookId).orElse(null);
 
-        if(!exists) {
+        if(targetBook == null) {
             log.error("Book with the id " + bookId + " does not exist");
+        } else {
+            bookRepository.delete(targetBook);
+            log.info("Deleted a book with ID " + bookId);
         }
-        bookRepository.deleteById(bookId);
-        log.info("Deleted a book with ID " + bookId);
+        return targetBook;
     }
 }

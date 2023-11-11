@@ -35,18 +35,18 @@ public class BookStoreRESTController {
     }
 
     @PostMapping("/admin/add")
-    public void addBook(@RequestBody Book book) {
-        service.addBook(book);
+    public Book addBook(@RequestBody Book book) {
+        return service.addBook(book);
     }
 
     @PutMapping("/admin/{id}")
-    public void updateBook(@PathVariable String id, @RequestBody Book updateBook) {
-        service.updateBook(Long.parseLong(id), updateBook);
+    public Book updateBook(@PathVariable String id, @RequestBody Book updateBook) {
+        return service.updateBook(Long.parseLong(id), updateBook);
     }
 
     @DeleteMapping("/admin/{id}")
-    public void deleteBook(@PathVariable String id) {
-        service.deleteBook(Long.parseLong(id));
+    public Book deleteBook(@PathVariable String id) {
+        return service.deleteBook(Long.parseLong(id));
     }
 
 }
