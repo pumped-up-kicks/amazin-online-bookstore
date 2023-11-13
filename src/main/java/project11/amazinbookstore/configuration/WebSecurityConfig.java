@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -26,6 +28,10 @@ public class WebSecurityConfig {
 //                                ,antMatcher("**")
                         ).permitAll()
                         .anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf.ignoringRequestMatchers(antMatcher("/h2/**")))
+                .headers(headers ->
+                        headers.frameOptions((frameOptions) -> frameOptions.disable())
                 )
                 // Uncommented for testing
 //                .csrf(csrf -> csrf.disable())
@@ -54,9 +60,9 @@ public class WebSecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/book/admin/**", "/book/admin/**")
+                .securityMatcher("/api/book/admin/**", "/book/admin/**", "/h2/**")
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().hasRole("ADMIN")
                 )
