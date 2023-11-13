@@ -3,9 +3,8 @@ package project11.amazinbookstore.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.services.UserService;
 
@@ -54,7 +53,10 @@ public class UserRegistrationController {
      * @return the file containing the registration page.
      */
     @GetMapping("/register")
-    public String register(){
+    public String register(@RequestParam(required = false) boolean usernameExists, Model model){
+        if (usernameExists) {
+            model.addAttribute("usernameExists", true);
+        }
         return "registration";
     }
 
@@ -66,9 +68,11 @@ public class UserRegistrationController {
      */
     @RequestMapping(value = "/processing-registration", method = RequestMethod.GET)
     public String registerNewUser(String username, String password){
-        userService.addNewUser(username, password, Role.USER);
+        boolean accountCreated = userService.addNewUser(username, password, Role.USER);
 
         // TODO: handle failed account creation
-        return "redirect:/login";
+        if (accountCreated)
+            return "redirect:/login";
+        return "redirect:/register?usernameExists=true";
     }
 }
