@@ -12,6 +12,11 @@ import project11.amazinbookstore.model.RegisteredUser;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.repository.UserRepository;
 
+/**
+ * The service for interactions with the user repository.
+ * @author Patrick Liu
+ * @version 1.0
+ */
 @Service
 @Slf4j
 public class UserService {
@@ -20,12 +25,23 @@ public class UserService {
     private final InMemoryUserDetailsManager manager;
     private final PasswordEncoder encoder;
 
+    /**
+     * Creates a UserService object for the given user repository.
+     * @param userRepository the user repository.
+     */
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
         manager = new InMemoryUserDetailsManager();
         encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    /**
+     * Creates and adds a user to the user repository.
+     * @param username the username of the user.
+     * @param password the password of the user.
+     * @param role the role of the user.
+     * @return true if user was added, false otherwise.
+     */
     public boolean addNewUser(String username, String password, Role role) {
 
         if(userRepository.findByUsername(username).isPresent()){

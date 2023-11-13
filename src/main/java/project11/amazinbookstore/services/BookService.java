@@ -10,26 +10,49 @@ import project11.amazinbookstore.repository.BookRepository;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Service for interactions with the repository of books.
+ * @author Bobby Ngo
+ * @version 1.0
+ */
 @Service
 @Slf4j
 public class BookService {
     private BookRepository bookRepository;
 
+    /**
+     * Creates a BookService object for the given repository of books.
+     * @param bookRepository the repository of books.
+     */
     @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Adds a book to the repository.
+     * @param book the book to add.
+     * @return the added book.
+     */
     public Book addBook(Book book) {
         Book newBook = bookRepository.save(book);
         log.info("Added new book with title " + newBook.getTitle());
         return newBook;
     }
 
+    /**
+     * Gets a list of available books from the repository.
+     * @return the list of books.
+     */
     public List<Book> getAllAvailableBooks(){
         return bookRepository.findAll();
     }
 
+    /**
+     * Finds the book in the repository corresponding to an id.
+     * @param bookId the book id.
+     * @return the corresponding book.
+     */
     public Book findBookById(Long bookId) {
         Book book = bookRepository.findById(bookId).orElse(null);
         if (book != null) {
@@ -38,6 +61,11 @@ public class BookService {
         return book;
     }
 
+    /**
+     * Finds the book in the repository corresponding to a title.
+     * @param title the book title.
+     * @return the corresponding book.
+     */
     public Book findBookByTitle(String title) {
         Book book = bookRepository.findByTitle(title).orElse(null);
         if (book != null) {
@@ -46,6 +74,12 @@ public class BookService {
         return book;
     }
 
+    /**
+     * Updates a book in the repository corresponding to an id.
+     * @param bookId the book id.
+     * @param updatedBook the new book value.
+     * @return the updated book.
+     */
     @Transactional
     public Book updateBook(Long bookId, Book updatedBook) {
         Book existedBook = bookRepository.findById(bookId).orElse(null);
@@ -94,6 +128,11 @@ public class BookService {
         return existedBook;
     }
 
+    /**
+     * Deletes a book from the database corresponding to an id.
+     * @param bookId the id of the book.
+     * @return the deleted book
+     */
     public Book deleteBook(Long bookId) {
         Book targetBook = bookRepository.findById(bookId).orElse(null);
 

@@ -14,10 +14,21 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
+/**
+ * Provides the configuration for Spring Security for the application.
+ * @author Patrick Liu, Ethan Leir
+ * @version 1.2
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    /**
+     * Determines the login security services needed by the application.
+     * @param http Spring Security http configuration param.
+     * @return Resulting security filter chain.
+     * @throws Exception Failure processing request.
+     */
     @Bean
     public SecurityFilterChain formLoginFilterChain(HttpSecurity http) throws Exception {
         http
@@ -58,6 +69,12 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    /**
+     * Determines the admin security services needed by the application.
+     * @param http Spring Security http configuration param.
+     * @return Resulting security filter chain.
+     * @throws Exception Failure processing request.
+     */
     @Bean
     @Order(1)
     public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
