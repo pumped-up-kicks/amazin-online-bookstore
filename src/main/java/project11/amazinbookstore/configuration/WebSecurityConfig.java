@@ -29,7 +29,7 @@ public class WebSecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.ignoringRequestMatchers(antMatcher("/h2/**")))
                 .headers(headers ->
                         headers.frameOptions((frameOptions) -> frameOptions.disable())
                 )
