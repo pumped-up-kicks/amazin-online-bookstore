@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -61,6 +63,23 @@ public class WebSecurityConfig {
                         .anyRequest().hasRole("ADMIN")
                 )
                 .httpBasic(withDefaults());
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain h2ConsoleEnableFilterChain(HttpSecurity http) throws Exception {
+        // This is to enable H2 consle and bypass Spring Security
+        // This is because H2 has its own authentication provider
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers(antMatcher("/h2/**"))
+                    .permitAll()
+                ).csrf(csrf -> csrf
+                        .ignoringRequestMatchers(antMatcher("/h2/**"))
+                        .disable()
+                );
+                //.headers(headers -> headers.frameOptions().disable());
         return http.build();
     }
 }
