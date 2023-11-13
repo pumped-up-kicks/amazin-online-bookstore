@@ -29,6 +29,10 @@ public class WebSecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                .csrf(csrf -> csrf.disable())
+                .headers(headers ->
+                        headers.frameOptions((frameOptions) -> frameOptions.disable())
+                )
                 // Uncommented for testing
 //                .csrf(csrf -> csrf.disable())
 //                .cors(cors -> cors.disable())
@@ -56,30 +60,13 @@ public class WebSecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/book/admin/**", "/book/admin/**")
+                .securityMatcher("/api/book/admin/**", "/book/admin/**", "/h2/**")
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().hasRole("ADMIN")
                 )
                 .httpBasic(withDefaults());
-        return http.build();
-    }
-
-    @Bean
-    @Order(2)
-    public SecurityFilterChain h2ConsoleEnableFilterChain(HttpSecurity http) throws Exception {
-        // This is to enable H2 consle and bypass Spring Security
-        // This is because H2 has its own authentication provider
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                    .requestMatchers(antMatcher("/h2/**"))
-                    .permitAll()
-                ).csrf(csrf -> csrf
-                        .ignoringRequestMatchers(antMatcher("/h2/**"))
-                        .disable()
-                );
-                //.headers(headers -> headers.frameOptions().disable());
         return http.build();
     }
 }
