@@ -22,37 +22,29 @@ git config commit.template .github/.gitmessage
 ## Agile Development Details
 ### Functionality
 Currently, the bookstore admin page has the following features:
-
-Access the administrative view, the bookstore view, and the user cart page
-Create a new book, with a specified name, genres, picture, author, and quantity in stock
-Update the information of a particular book
-Remove books entirely from the bookstore
-View all or specific books stored in the bookstore with provided id or book name
+- Access the administrative view, the bookstore view, and the user cart page
+- Create a new book, with a specified name, genres, picture, author, and quantity in stock
+- Update the information of a particular book
+- Remove books entirely from the bookstore
+- View all or specific books stored in the bookstore with provided id or book name
 
 The bookstore customer page also has the following abilities:
-View all or specific books stored in the bookstore by providing id or book name
-<!--
-Add items to their cart
-View cart items
-Change quantities of specific items in cart
-Remove items completely from cart
-Guests finally have the following abilities:
--->
-<!--
-See their purchase history (NEW)
-See a recommendations page (NEW)
--->
-Only authenticated users can access the homepage or logout
-Unauthenticated user can register for a new unique account
-Unauthenticated user can login with user account credentials
-The system will stop unauthenticated users when they manually modify the URL routes or send any request to the server
-The UI will display the error and have friendly user experience
-<!--
-The system:
-Integrated with AOP for logging (NEW)
-Better documentation of endpoints (NEW)
-More descriptive display of failures / more user-friendly (NEW)
--->
+- View all or specific books stored in the bookstore by providing id or book name
+  
+Security and authentication:
+- Only authenticated users can access the homepage or logout
+- Unauthenticated user can register for a new unique account
+- Unauthenticated user can login with user account credentials
+- The system will stop unauthenticated users when they manually modify the URL routes or send any request to the server
+- The UI will display the error and have friendly user experience
+  
+These features will be available next Sprint:
+- See their purchase history 
+- See a recommendations page
+- Add items to their cart
+- View cart items
+- Change quantities of specific items in cart
+- Remove items completely from cart
 
 ### Development and release process
 The project must have a main branch, and each contributor should create a new branch for each of the
