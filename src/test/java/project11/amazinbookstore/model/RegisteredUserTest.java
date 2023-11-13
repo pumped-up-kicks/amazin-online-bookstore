@@ -16,6 +16,10 @@ class RegisteredUserTest {
     @BeforeEach
     void setUp() {
         registeredUser = new RegisteredUser("user", "password", Role.USER);
+        registeredUser.setId(10L);
+        registeredUser.setUsername("user");
+        registeredUser.setPassword("password");
+        registeredUser.setRole(Role.USER);
         registeredAdmin = new RegisteredUser("admin1", "password", Role.ADMIN);
     }
 
@@ -52,6 +56,8 @@ class RegisteredUserTest {
     @Test
     void testEquals() {
         RegisteredUser equalUser = new RegisteredUser("user", "password", Role.USER);
+        equalUser.setId(10L);
+        equalUser = new RegisteredUser(10L, "user", "password", Role.USER);
         assertEquals(registeredUser, equalUser);
     }
 
