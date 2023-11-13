@@ -53,10 +53,7 @@ public class UserRegistrationController {
      * @return the file containing the registration page.
      */
     @GetMapping("/register")
-    public String register(@RequestParam(required = false) boolean usernameExists, Model model){
-        if (usernameExists) {
-            model.addAttribute("usernameExists", true);
-        }
+    public String register(){
         return "registration";
     }
 
@@ -70,9 +67,8 @@ public class UserRegistrationController {
     public String registerNewUser(String username, String password){
         boolean accountCreated = userService.addNewUser(username, password, Role.USER);
 
-        // TODO: handle failed account creation
         if (accountCreated)
             return "redirect:/login";
-        return "redirect:/register?usernameExists=true";
+        return "redirect:/register?usernameExists";
     }
 }
