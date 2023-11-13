@@ -26,6 +26,7 @@ public class UserRegistrationController {
 
     @GetMapping("/login")
     public String login() {
+        // FIXME: do not let user return to login page if already signed in.
         return "login";
     }
 
