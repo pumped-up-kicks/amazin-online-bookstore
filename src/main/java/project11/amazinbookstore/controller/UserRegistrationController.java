@@ -1,8 +1,12 @@
 package project11.amazinbookstore.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.Role;
@@ -43,9 +47,16 @@ public class UserRegistrationController {
      * @return the file containing the login page.
      */
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
         // FIXME: do not let user return to login page if already signed in.
-        return "login";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            log.info("Anonymous authentication token detected!");
+            // Anonymous user
+            return "login";
+        }
+        // Logged in user
+        return "redirect:/";
     }
 
     /**
@@ -54,7 +65,14 @@ public class UserRegistrationController {
      */
     @GetMapping("/register")
     public String register(){
-        return "registration";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            // Anonymous user
+            log.info("Anonymous authentication token detected!");
+            return "registration";
+        }
+        // Logged-in user
+        return "redirect:/";
     }
 
     /**
