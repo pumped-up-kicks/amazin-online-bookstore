@@ -9,15 +9,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.services.UserService;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest(UserRegistrationController.class)
@@ -74,11 +78,35 @@ class UserRegistrationControllerMockTest {
 
     @Test
     @WithMockUser
+    void testRegisterUsernameExists() throws Exception {
+        // FIXME: why do I need @WithMockUser here as well?
+        MvcResult result = mockMvc.perform(get("/register?usernameExists=true"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("An account with that username already exists."));
+    }
+
+    @Test
+    @WithMockUser
     void testRegisterNewUser() throws Exception {
         // FIXME: again, why does this need @WithMockUser???
-        mockMvc.perform(get("/processing-registration"))
+        when(userService.addNewUser("testUser","password",Role.USER)).thenReturn(true);
+        mockMvc.perform(get("/processing-registration?username=testUser&password=password"))
                 .andDo(print())
-                .andExpect(status().isFound());
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    @WithMockUser
+    void testRegisterNewUserDuplicate() throws Exception {
+        // FIXME: why does this need @WithMockUser?
+        when(userService.addNewUser("testUser", "password", Role.USER)).thenReturn(false);
+        mockMvc.perform(get("/processing-registration?username=testUser&password=password"))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/register?usernameExists=true"));
     }
 
 
