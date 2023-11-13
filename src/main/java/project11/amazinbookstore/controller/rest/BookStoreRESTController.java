@@ -7,21 +7,39 @@ import project11.amazinbookstore.services.BookService;
 
 import java.util.List;
 
+/**
+ * Provides REST endpoints for a service on the database of books.
+ * @author Bobby Ngo
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/api/book")
 public class BookStoreRESTController {
     private BookService service;
 
+    /**
+     * Creates a BookStoreRESTController object for a given service on the database of books.
+     * @param service the service on the database of books.
+     */
     @Autowired
     public BookStoreRESTController(BookService service) {
         this.service = service;
     }
 
+    /**
+     * Gets a list of available books from the service.
+     * @return the list of available books.
+     */
     @GetMapping("/all")
     public List<Book> getAllBooks() {
         return service.getAllAvailableBooks();
     }
 
+    /**
+     * Gets the book corresponding to an id from the service.
+     * @param id the id of the book.
+     * @return the corresponding book.
+     */
     @GetMapping("/{id}")
     public Book findBookById(@PathVariable String id) {
         return service.findBookById(Long.parseLong(id));
@@ -29,21 +47,42 @@ public class BookStoreRESTController {
 
     // Not confident with this bc not sure we need
     // end point localhost:3000/book?title="naruto"
+    /**
+     * Gets the book corresponding to a title from the service.
+     * @param title the title of the book.
+     * @return the corresponding book.
+     */
     @GetMapping
     public Book findBookByTitle(@RequestParam String title) {
         return service.findBookByTitle(title);
     }
 
+    /**
+     * Gives the service a book to add to its database.
+     * @param book the book to add.
+     * @return the added book.
+     */
     @PostMapping("/admin/add")
     public Book addBook(@RequestBody Book book) {
         return service.addBook(book);
     }
 
+    /**
+     * Updates the book value corresponding to an id in the database.
+     * @param id the id of the book.
+     * @param updateBook the updated book.
+     * @return the updated book.
+     */
     @PutMapping("/admin/{id}")
     public Book updateBook(@PathVariable String id, @RequestBody Book updateBook) {
         return service.updateBook(Long.parseLong(id), updateBook);
     }
 
+    /**
+     * Deletes a book corresponding to an id from the database.
+     * @param id the id of the book.
+     * @return the removed book.
+     */
     @DeleteMapping("/admin/{id}")
     public Book deleteBook(@PathVariable String id) {
         return service.deleteBook(Long.parseLong(id));
