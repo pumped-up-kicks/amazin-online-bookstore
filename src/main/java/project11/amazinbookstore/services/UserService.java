@@ -26,11 +26,11 @@ public class UserService {
         encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    public void addNewUser(String username, String password, Role role) {
+    public boolean addNewUser(String username, String password, Role role) {
 
         if(userRepository.findByUsername(username).isPresent()){
             log.info(String.format("User account %s already exists", username));
-            return;
+            return false;
         }
 
         String hashedPassword = encoder.encode(password);
@@ -39,6 +39,7 @@ public class UserService {
 
         manager.createUser(user);
         log.info(String.format("Created account user %s", username));
+        return true;
 
     }
 
