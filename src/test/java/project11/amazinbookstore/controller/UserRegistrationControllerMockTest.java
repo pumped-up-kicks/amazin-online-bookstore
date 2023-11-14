@@ -80,7 +80,7 @@ class UserRegistrationControllerMockTest {
     @WithMockUser
     void testRegisterUsernameExists() throws Exception {
         // FIXME: why do I need @WithMockUser here as well?
-        MvcResult result = mockMvc.perform(get("/register?usernameExists=true"))
+        MvcResult result = mockMvc.perform(get("/register?usernameExists"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -106,7 +106,7 @@ class UserRegistrationControllerMockTest {
         mockMvc.perform(get("/processing-registration?username=testUser&password=password"))
                 .andDo(print())
                 .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/register?usernameExists=true"));
+                .andExpect(redirectedUrl("/register?usernameExists"));
     }
 
 
