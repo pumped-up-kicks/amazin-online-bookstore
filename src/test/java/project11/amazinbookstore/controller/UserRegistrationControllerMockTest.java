@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -61,7 +63,8 @@ class UserRegistrationControllerMockTest {
     }
 
     @Test
-    void testLogin() throws Exception {
+    @WithMockUser(roles = {"ANONYMOUS"})
+    void testLoginAsAnonymousUser() throws Exception {
         mockMvc.perform(get("/login"))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -87,8 +90,19 @@ class UserRegistrationControllerMockTest {
 
     @Test
     @WithMockUser
-    void testRegister() throws Exception {
-        // FIXME: wtf... why does this need @WithMockUser????
+    void testLoginAsSignedInUser() throws Exception {
+        mockMvc.perform(get("/login"))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    @WithMockUser(roles = {"ANONYMOUS"})
+    void testRegisterAsAnonymousUser() throws Exception {
+        // Observation:
+        // - @WithMockUser allows the debugger to enter "/register"
+        // - @WithAnonymousUser does not allow the debugger to enter "/register"
         mockMvc.perform(get("/register"))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -96,7 +110,16 @@ class UserRegistrationControllerMockTest {
 
     @Test
     @WithMockUser
-    void testRegisterUsernameExists() throws Exception {
+    void testRegisterAsSignedInUser() throws Exception {
+        mockMvc.perform(get("/register"))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    @WithMockUser(roles = {"ANONYMOUS"})
+    void testRegisterUsernameExistsAsAnonymousUser() throws Exception {
         // FIXME: why do I need @WithMockUser here as well?
         MvcResult result = mockMvc.perform(get("/register?usernameExists"))
                 .andDo(print())

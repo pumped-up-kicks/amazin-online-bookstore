@@ -1,13 +1,9 @@
 package project11.amazinbookstore.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.services.UserService;
@@ -47,12 +43,13 @@ public class UserRegistrationController {
      * @return the file containing the login page.
      */
     @GetMapping("/login")
-    public String login(HttpServletRequest request) {
+    public String login() {
         // FIXME: do not let user return to login page if already signed in.
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth instanceof AnonymousAuthenticationToken) {
-            log.info("Anonymous authentication token detected!");
+        if (auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ANONYMOUS"))) {
             // Anonymous user
+            log.info("Anonymous user detected");
             return "login";
         }
         // Logged in user
@@ -66,9 +63,11 @@ public class UserRegistrationController {
     @GetMapping("/register")
     public String register(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth instanceof AnonymousAuthenticationToken) {
+
+        if (auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ANONYMOUS"))) {
             // Anonymous user
-            log.info("Anonymous authentication token detected!");
+            log.info("Anonymous user detected");
             return "registration";
         }
         // Logged-in user
