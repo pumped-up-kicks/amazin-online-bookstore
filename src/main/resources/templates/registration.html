@@ -35,6 +35,12 @@
         </ul>
     </div>
 </nav>
+
+
+<div th:if="${param.usernameExists}" class="p-2 mb-3 alert alert-danger col-6 align-middle w-50 offset-3" role="alert">
+    <label>An account with that username already exists.</label>
+</div>
+
 <div class="card col-6 align-middle offset-3 w-50 p-3">
     <div class="card-body">
         <form action="/processing-registration">
@@ -46,9 +52,6 @@
             <div class="row mb-3">
                 <label for="formGroupExampleInput" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <div th:if="${usernameExists}" class="row mb-3 alert alert-danger" role="alert">
-                <label>An account with that username already exists.</label>
             </div>
             <div class="d-grid gap-2">
                 <a class="row" href="/logged-in">

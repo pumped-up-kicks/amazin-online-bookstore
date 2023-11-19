@@ -68,6 +68,24 @@ class UserRegistrationControllerMockTest {
     }
 
     @Test
+    void testLoginError() throws Exception {
+        MvcResult result = mockMvc.perform(get("/login?error"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("Invalid credentials"));
+    }
+
+    @Test
+    void testLoginLogout() throws Exception {
+        MvcResult result = mockMvc.perform(get("/login?logout"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("You have been signed out"));
+    }
+
+    @Test
     @WithMockUser
     void testRegister() throws Exception {
         // FIXME: wtf... why does this need @WithMockUser????
@@ -80,7 +98,7 @@ class UserRegistrationControllerMockTest {
     @WithMockUser
     void testRegisterUsernameExists() throws Exception {
         // FIXME: why do I need @WithMockUser here as well?
-        MvcResult result = mockMvc.perform(get("/register?usernameExists=true"))
+        MvcResult result = mockMvc.perform(get("/register?usernameExists"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -106,11 +124,7 @@ class UserRegistrationControllerMockTest {
         mockMvc.perform(get("/processing-registration?username=testUser&password=password"))
                 .andDo(print())
                 .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/register?usernameExists=true"));
+                .andExpect(redirectedUrl("/register?usernameExists"));
     }
-
-
-
-
 
 }
