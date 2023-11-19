@@ -1,9 +1,9 @@
 package project11.amazinbookstore.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.services.UserService;
@@ -45,7 +45,15 @@ public class UserRegistrationController {
     @GetMapping("/login")
     public String login() {
         // FIXME: do not let user return to login page if already signed in.
-        return "login";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ANONYMOUS"))) {
+            // Anonymous user
+            log.info("Anonymous user detected");
+            return "login";
+        }
+        // Logged in user
+        return "redirect:/";
     }
 
     /**
@@ -54,7 +62,16 @@ public class UserRegistrationController {
      */
     @GetMapping("/register")
     public String register(){
-        return "registration";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ANONYMOUS"))) {
+            // Anonymous user
+            log.info("Anonymous user detected");
+            return "registration";
+        }
+        // Logged-in user
+        return "redirect:/";
     }
 
     /**
