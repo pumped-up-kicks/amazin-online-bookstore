@@ -18,9 +18,9 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Need relationship with registered user
-//    @OneToOne(fetch = FetchType.EAGER, mappedBy = "", targetEntity = RegisteredUser.class)
-//    private RegisteredUser user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private CustomerUser customer;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JsonBackReference
@@ -44,13 +44,20 @@ public class CartItem {
         return id;
     }
 
-//    public RegisteredUser getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(RegisteredUser user) {
-//        this.user = user;
-//    }
+    /**
+     * Get the customer.
+     * @return the customer.
+     */
+    public CustomerUser getCustomer() {
+        return customer;
+    }
+
+    /**
+     * Set the customer
+     */
+    public void setCustomer(CustomerUser customer) {
+        this.customer = customer;
+    }
 
     /**
      * Get the book in the cart.

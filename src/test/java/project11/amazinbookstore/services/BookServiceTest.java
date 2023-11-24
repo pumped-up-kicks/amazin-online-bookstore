@@ -71,9 +71,9 @@ class BookServiceTest {
 
         service.addBook(testBook);
 
-        testBook.setAuthor(newAuthor);
+        testBook.setPublisher(newAuthor);
         testBook.setTitle(newTitle);
-        testBook.setGenres(newGenre);
+        testBook.setIsbn(newGenre);
         testBook.setPicture(newPicture);
         testBook.setInventoryQuantity(newQuantity);
 
