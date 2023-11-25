@@ -20,13 +20,19 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    private CustomerUser customer;
+    private RegisteredUser customer;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JsonBackReference
     private Book book;
 
     private int quantity;
+
+    public CartItem(RegisteredUser customer, Book book, int quantity) {
+        this.customer = customer;
+        this.book = book;
+        this.quantity = quantity;
+    }
 
     /**
      * Set the id of the cart item.
@@ -48,14 +54,14 @@ public class CartItem {
      * Get the customer.
      * @return the customer.
      */
-    public CustomerUser getCustomer() {
+    public RegisteredUser getCustomer() {
         return customer;
     }
 
     /**
      * Set the customer
      */
-    public void setCustomer(CustomerUser customer) {
+    public void setCustomer(RegisteredUser customer) {
         this.customer = customer;
     }
 

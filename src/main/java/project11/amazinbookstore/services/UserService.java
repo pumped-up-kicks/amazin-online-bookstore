@@ -76,4 +76,8 @@ public class UserService {
 
         return manager;
     }
+
+    public RegisteredUser findUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

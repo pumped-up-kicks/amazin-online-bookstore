@@ -1,5 +1,6 @@
 package project11.amazinbookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,6 +32,11 @@ public class RegisteredUser implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+    //@JoinColumn(name="cart_item_id", referencedColumnName="id")
+    @JsonManagedReference
+    private List<CartItem> cartItem = new ArrayList<>();
 
     /**
      * Creates a RegisteredUser object with the given username, password, and role.
