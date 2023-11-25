@@ -57,7 +57,7 @@ class RegisteredUserTest {
     void testEquals() {
         RegisteredUser equalUser = new RegisteredUser("user", "password", Role.USER);
         equalUser.setId(10L);
-        equalUser = new RegisteredUser(10L, "user", "password", Role.USER);
+        //equalUser = new RegisteredUser(10L, "user", "password", Role.USER);
         assertEquals(registeredUser, equalUser);
     }
 
