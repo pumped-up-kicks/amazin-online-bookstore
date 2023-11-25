@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project11.amazinbookstore.model.Book;
+import project11.amazinbookstore.repository.BookRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,15 +16,19 @@ class BookServiceTest {
     @Autowired
     private BookService service;
 
+    @Autowired
+    private BookRepository repository;
+
     private Book testBook;
 
     @BeforeEach
     void setUp() {
-        testBook = new Book("title", "author", "genres", "picture", 5);
+        testBook = new Book("title", "author", "isbn1", "picture", 5);
     }
 
     @AfterEach
     void tearDown() {
+        repository.deleteAll();
     }
 
     @Test
@@ -50,7 +55,7 @@ class BookServiceTest {
     void testFindBookByTitleExists() {
         // FIXME: titles are not unique. There could be multiple books with the same title
         String title = "a peculiar title";
-        Book newBook = new Book(title, "author", "genres", "picture", 5);
+        Book newBook = new Book(title, "author", "isbn2", "picture", 5);
         service.addBook(newBook);
         assertEquals(newBook, service.findBookByTitle(title));
     }
@@ -65,7 +70,7 @@ class BookServiceTest {
     void testUpdateBookExists() {
         String newTitle = "a new title";
         String newAuthor = "a new author";
-        String newGenre = "a new genre";
+        String newIsbn = "a new isbn";
         String newPicture = "a new picture";
         int newQuantity = 10;
 
@@ -73,7 +78,7 @@ class BookServiceTest {
 
         testBook.setPublisher(newAuthor);
         testBook.setTitle(newTitle);
-        testBook.setIsbn(newGenre);
+        testBook.setIsbn(newIsbn);
         testBook.setPicture(newPicture);
         testBook.setInventoryQuantity(newQuantity);
 
