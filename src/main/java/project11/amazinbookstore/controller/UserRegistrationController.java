@@ -9,7 +9,7 @@ import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.services.UserService;
 
 /**
- * Provides REST endpoints for typical website functions and interactions with the user database.
+ * Provides endpoints for typical website functions and interactions with the user database.
  * @author Zakaria Ismail, Patrick Liu
  * @version 1.0
  */
@@ -27,15 +27,6 @@ public class UserRegistrationController {
     @Autowired
     public UserRegistrationController(UserService userService){
         this.userService = userService;
-    }
-
-    /**
-     * Redirects users to the home page.
-     * @return the file containing the home page.
-     */
-    @GetMapping("/")
-    public String homepage(){
-        return "index";
     }
 
     /**

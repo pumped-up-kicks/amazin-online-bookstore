@@ -30,6 +30,10 @@ public class CartItemService{
         RegisteredUser user = userService.findUserByUserName(userName);
         Book book = bookService.findBookById(bookId);
         List<CartItem> cartItems = repository.findCartItemsByCustomer(user).orElse(null);
+
+        if (quantity <= 0) {
+            return repository.findCartItemsByCustomer(user).orElse(null);
+        }
         // Case 1: When the cart is empty
         // Case 2: When the cart doesn't have that book
         CartItem item = repository.findCartItemByCustomerAndBook(user, book).orElse(null);
