@@ -79,7 +79,7 @@ public class WebSecurityConfig {
     @Order(1)
     public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/book/admin/**", "/book/admin/**", "/h2/**")
+                .securityMatcher("/api/book/admin/**", "/admin/**", "/h2/**")
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().hasRole("ADMIN")
                 )

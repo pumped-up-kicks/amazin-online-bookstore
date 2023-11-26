@@ -3,14 +3,13 @@ package project11.amazinbookstore.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project11.amazinbookstore.model.Book;
 import project11.amazinbookstore.model.CartItem;
 import project11.amazinbookstore.model.RegisteredUser;
 import project11.amazinbookstore.repository.CartItemRepository;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -52,8 +51,52 @@ public class CartItemService{
         return repository.findCartItemsByCustomer(user).orElse(null);
     }
 
-    public void removeBookFromCart(){
+    @Transactional
+    public void removeBookFromCart(Long bookId, String userName){
 
+        Book book = bookService.findBookById(bookId);
+        RegisteredUser user = userService.findUserByUserName(userName);
+
+        CartItem bookToBeRemoved = repository.findCartItemByCustomerAndBook(user, book).orElse(null);
+
+        bookToBeRemoved.setBook(null);
+        bookToBeRemoved.setCustomer(null);
+
+        repository.delete(bookToBeRemoved);
+    }
+
+    @Transactional
+    public Long checkout(String userName){
+        List<CartItem> cartItems = findItemsInUserCart(userName);
+
+        for(CartItem item: cartItems){
+            Book orderedBook = item.getBook();
+            int orderedAmount = item.getQuantity();
+            int currentInventoryQuantity = orderedBook.getInventoryQuantity();
+            if(currentInventoryQuantity < orderedAmount){
+                return orderedBook.getId();
+            }
+        }
+
+        for(CartItem item: cartItems){
+            Book orderedBook = item.getBook();
+            int orderedAmount = item.getQuantity();
+            int currentInventoryQuantity = orderedBook.getInventoryQuantity();
+            orderedBook.setInventoryQuantity(currentInventoryQuantity - orderedAmount);
+        }
+
+        RegisteredUser user = userService.findUserByUserName(userName);
+
+        for(CartItem items: user.getCartItem()){
+            items.setCustomer(null);
+            items.setBook(null);
+        }
+
+        repository.deleteAll(user.getCartItem());
+
+        log.info("Clearing " + userName + "'s Shopping Cart");
+
+        return 0L;
     }
 
     public List<CartItem> findItemsInUserCart(String username){
