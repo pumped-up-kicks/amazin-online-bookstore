@@ -1,5 +1,6 @@
 package project11.amazinbookstore.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project11.amazinbookstore.model.Book;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class CartItemService{
     private UserService userService;
     private BookService bookService;
@@ -24,23 +26,24 @@ public class CartItemService{
         this.bookService = bookService;
     }
 
-    public List<CartItem> addBookToCart(Long bookId, Long userId, int quantity){
-        RegisteredUser user = userService.findUserById(userId);
+    public List<CartItem> addBookToCart(Long bookId, String userName, int quantity){
+        RegisteredUser user = userService.findUserByUserName(userName);
         Book book = bookService.findBookById(bookId);
         List<CartItem> cartItems = repository.findCartItemsByCustomer(user).orElse(null);
         // Case 1: When the cart is empty
         // Case 2: When the cart doesn't have that book
-        if (cartItems == null) {
-            CartItem item = new CartItem(user, book, quantity);
-            repository.save(item);
+        CartItem item = repository.findCartItemByCustomerAndBook(user, book).orElse(null);
+        assert cartItems != null;
+        if (cartItems.isEmpty() || item == null) {
+            CartItem newItem = new CartItem(user, book, quantity);
+            repository.save(newItem);
+            log.info("Added book " + book.getTitle() + " for user " + userName);
         } else {
             // Case 3: When book existed
-            CartItem item = repository.findCartItemByCustomerAndBook(user, book).orElse(null);
-            if (item != null) {
-                int newQuantity = item.getQuantity() + quantity;
-                item.setQuantity(newQuantity);
-                repository.save(item);
-            }
+            int newQuantity = item.getQuantity() + quantity;
+            item.setQuantity(newQuantity);
+            repository.save(item);
+            log.info("Added book " + book.getTitle() + " for user " + userName);
         }
         return repository.findCartItemsByCustomer(user).orElse(null);
     }
@@ -49,8 +52,8 @@ public class CartItemService{
 
     }
 
-    public List<CartItem> findItemsInUserCart(Long userId){
-        RegisteredUser user = userService.findUserById(userId);
+    public List<CartItem> findItemsInUserCart(String username){
+        RegisteredUser user = userService.findUserByUserName(username);
         return repository.findCartItemsByCustomer(user).orElse(null);
     }
 }

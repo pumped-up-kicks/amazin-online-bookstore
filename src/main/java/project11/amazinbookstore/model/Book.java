@@ -1,5 +1,6 @@
 package project11.amazinbookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,10 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Book {
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="cart_item_id", referencedColumnName="id")
-    @JsonManagedReference
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "book")
+//    @JoinColumn(name="cart_item_id", referencedColumnName="id")
+    //@JoinColumn()
+    @JsonBackReference
     private List<CartItem> cartItem = new ArrayList<>();
 
     @Id

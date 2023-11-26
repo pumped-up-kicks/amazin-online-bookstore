@@ -1,6 +1,7 @@
 package project11.amazinbookstore.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,7 @@ public class CartItem {
     private RegisteredUser customer;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JsonBackReference
+    @JsonManagedReference
     private Book book;
 
     private int quantity;

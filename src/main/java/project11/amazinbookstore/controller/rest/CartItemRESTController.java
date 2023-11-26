@@ -1,10 +1,9 @@
 package project11.amazinbookstore.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.BookRequestDTO;
 import project11.amazinbookstore.model.CartItem;
 import project11.amazinbookstore.services.CartItemService;
@@ -23,9 +22,15 @@ public class CartItemRESTController {
 
     @PostMapping("/add")
     public List<CartItem> addBookToCart(@RequestBody BookRequestDTO bookRequestDTO) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long bookId = bookRequestDTO.getBookId();
-        Long userId = bookRequestDTO.getUserId();
         int quantity = bookRequestDTO.getQuantity();
-        return service.addBookToCart(bookId, userId, quantity);
+        return service.addBookToCart(bookId, auth.getName(), quantity);
+    }
+
+    @GetMapping("/viewCart")
+    public List<CartItem> getAllItemsInUserCart() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return service.findItemsInUserCart(auth.getName());
     }
 }
