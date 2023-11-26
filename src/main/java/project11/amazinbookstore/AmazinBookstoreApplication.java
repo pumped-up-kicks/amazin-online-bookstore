@@ -24,9 +24,9 @@ public class AmazinBookstoreApplication {
 			userService.addNewUser("user1", "password", Role.USER);
 
 			// add multiple books
-			bookRepository.save(new Book("Brave New World", "HarperCollins Publishers", "9780062696120", "img/BNW.jpg", 12));
-			bookRepository.save(new Book("The Last Wish", "Orbit", "9780316029186", "img/the_last_wish.jpg", 69));
-			bookRepository.save(new Book("A Fatal Grace", "Minotaur Books", "9780312541163", "img/a_fatal_grace.jpg", 80));
+			bookRepository.save(new Book("Brave New World", "HarperCollins Publishers", "9780062696120", "BNW", 12));
+			bookRepository.save(new Book("The Last Wish", "Orbit", "9780316029186", "the_last_wish", 69));
+			bookRepository.save(new Book("A Fatal Grace", "Minotaur Books", "9780312541163", "a_fatal_grace", 80));
 
 		};
 	}

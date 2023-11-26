@@ -55,7 +55,7 @@
                 <div class="card m-5 availableBooks overflow-scroll" style="width: 320px;" th:each="availableBook: ${availableBooks}">
                     <div class="card-body">
 <!--                        <div class="overflow-hidden w-100" style="height: 200px;">-->
-                        <img class="card-img-top object-fit-cover border rounded" th:src="${availableBook.picture}" th:alt="${availableBook.title}">
+                        <img class="card-img-top object-fit-cover border rounded" th:src="|img/${availableBook.picture}.jpg|" th:alt="${availableBook.title}">
 <!--                        </div>-->
                         <h5 class="card-title" th:text="${availableBook.title}"></h5>
                         <p class="card-text" th:text="|Publisher: ${availableBook.publisher}|"></p>
