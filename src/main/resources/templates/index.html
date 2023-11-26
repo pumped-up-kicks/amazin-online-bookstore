@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,6 +35,73 @@
     <div class="card-body">
         <h2 class="card-title">Welcome to the Amazin Book Store</h2>
         <p class="card-text">Books and Books and even more Books ...</p>
+        <div class="card w-100 p-3 overflow-auto">
+            <table class="card-body">
+                <!-- TODO: Replace with d-flex, flex-wrap elem -->
+                <tr class="availableBooks" th:each="availableBook: ${availableBooks}">
+                    <td class="card">
+                        <div class="card-body">
+                            <img class="card-img-top" th:src="${availableBook.picture}" th:alt="${availableBook.title}">
+                            <h5 class="card-title" th:text="${availableBook.title}"></h5>
+                            <p class="card-text" th:text="${availableBook.author}"></p>
+                            <p class="card-text color-secondary fw-light" th:text="${availableBook.genres}"></p>
+                            <form th:if="${adminInterface} == true" th:action="@{/admin/portal/${availableBook.id}}" th:method="post">
+                            <a href="#" class="btn btn-primary">Add to cart</a>
+                            </form>
+                            <!-- TODO: Replace with button and AJAX call onclick -->
+                            <form th:if="${adminInterface} == true" th:action="@{/admin/portal/${availableBook.id}}" th:method="delete">
+                                <input type="submit" class="btn btn-danger" value="Delete book"/>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- Button trigger modal -->
+        <button type="button" th:if="${adminInterface} == true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newBookModal">
+            Create book
+        </button>
+    </div>
+</div>
+<!-- Modals -->
+<div class="modal fade" id="newBookModal" tabindex="-1" aria-labelledby="newBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="newBookModalLabel">Register New Book</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/admin/portal/add}" th:object="${book}" method="post">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Title</label>
+                        <input type="text" class="form-control" th:field="*{title}" placeholder="Title"/>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Author</label>
+                        <input type="text" class="form-control" th:field="*{author}" placeholder="Author"/>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Genres</label>
+                        <input type="text" class="form-control" th:field="*{genres}" placeholder="Genres"/>
+                    </div>
+                    <div class="row mb-3">
+                        <!-- TODO: Improve this! -->
+                        <label for="formGroupExampleInput" class="form-label">Picture</label>
+                        <input type="text" class="form-control" th:field="*{picture}" placeholder="Picture"/>
+                    </div>
+                    <div class="row mb-3">
+                        <!-- TODO: Improve this! -->
+                        <label for="formGroupExampleInput" class="form-label">Quantity</label>
+                        <input type="text" class="form-control" th:field="*{inventoryQuantity}" placeholder="Quantity"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Add book"/>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>

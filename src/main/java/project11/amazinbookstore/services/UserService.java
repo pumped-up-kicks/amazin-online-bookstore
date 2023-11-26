@@ -12,6 +12,8 @@ import project11.amazinbookstore.model.RegisteredUser;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.repository.UserRepository;
 
+import java.util.Optional;
+
 /**
  * The service for interactions with the user repository.
  * @author Patrick Liu
