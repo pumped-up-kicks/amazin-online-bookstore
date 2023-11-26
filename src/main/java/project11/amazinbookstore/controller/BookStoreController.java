@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,10 @@ import project11.amazinbookstore.model.BookDTO;
 import project11.amazinbookstore.model.BookRequestDTO;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Provides endpoints for typical website functions and interactions with the book database.
@@ -50,6 +55,14 @@ public class BookStoreController {
         model.addAttribute("book", new BookDTO());
         model.addAttribute("bookRequest", new BookRequestDTO());
         model.addAttribute("availableBooks", bookService.getAllAvailableBooks());
+        log.info(auth.getName());
+        log.info(auth.getAuthorities().toString());
+        log.info(auth.getDetails().toString());
+        log.info(auth.getPrincipal().toString());
+        List<GrantedAuthority> authorities = new ArrayList<>(auth.getAuthorities());
+        log.info(String.valueOf(authorities.contains("ROLE_USER")));
+        log.info(String.valueOf(authorities.contains("USER")));
+        model.addAttribute("authorities", authorities);
         return "index";
     }
 
