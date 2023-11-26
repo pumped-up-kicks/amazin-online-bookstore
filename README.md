@@ -19,6 +19,7 @@ git config commit.template .github/.gitmessage
 ## Database Schema
 ![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/52aff7cd-8d3c-4596-b3d4-7a100c1e3274)
 
+## UML Class Diagram
 
 ## Agile Development Details
 ### Functionality
