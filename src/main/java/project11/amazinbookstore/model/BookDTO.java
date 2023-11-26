@@ -2,8 +2,8 @@ package project11.amazinbookstore.model;
 
 public class BookDTO {
     private String title;
-    private String author;
-    private String genres;
+    private String publisher;
+    private String isbn;
     private String picture;
 
     private int inventoryQuantity;
@@ -11,15 +11,15 @@ public class BookDTO {
     /**
      * Creates a book DTO with the given title, author, genres, and picture.
      * @param title the book title.
-     * @param author the book author.
-     * @param genres the genres of the book.
+     * @param publisher the book author.
+     * @param isbn the genres of the book.
      * @param picture a picture of the book.
      * @param inventoryQuantity the stock of the book in inventory.
      */
-    public BookDTO(String title, String author, String genres, String picture, int inventoryQuantity) {
+    public BookDTO(String title, String publisher, String isbn, String picture, int inventoryQuantity) {
         this.title = title;
-        this.author = author;
-        this.genres = genres;
+        this.publisher = publisher;
+        this.isbn = isbn;
         this.picture = picture;
         this.inventoryQuantity = inventoryQuantity;
     }
@@ -29,8 +29,8 @@ public class BookDTO {
      */
     public BookDTO() {
         this.title = "";
-        this.author = "";
-        this.genres = "";
+        this.publisher = "";
+        this.isbn = "";
         this.picture = "";
         this.inventoryQuantity = 0;
     }
@@ -55,32 +55,32 @@ public class BookDTO {
      * Gets the author of the book.
      * @return the book author.
      */
-    public String getAuthor() {
-        return author;
+    public String getPublisher() {
+        return publisher;
     }
 
     /**
      * Sets the author of the book.
-     * @param author the book author.
+     * @param publisher the book author.
      */
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     /**
      * Gets the genres of the book.
      * @return the book genres.
      */
-    public String getGenres() {
-        return genres;
+    public String getIsbn() {
+        return isbn;
     }
 
     /**
      * Sets the genres of the book.
-     * @param genres the book genres.
+     * @param isbn the book genres.
      */
-    public void setGenres(String genres) {
-        this.genres = genres;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     /**
