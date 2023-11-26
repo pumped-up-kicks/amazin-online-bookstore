@@ -31,21 +31,20 @@
         </ul>
     </div>
 </nav>
-<div class="card col-6 offset-3 w-50 p-3" style="min-height: 600px;">
+<div class="card col-6 offset-3 w-50 p-3">
     <div class="card-body">
         <h2 class="card-title">Welcome to the Amazin Book Store</h2>
         <p class="card-text">Books and Books and even more Books ...</p>
-        <div class="card w-100 p-3 overflow-auto">
-            <table class="card-body">
-                <!-- TODO: Replace with d-flex, flex-wrap elem -->
-                <tr class="availableBooks" th:each="availableBook: ${availableBooks}">
-                    <td class="card">
+        <div class="card w-100 p-3 overflow-auto" style="height: 400px;">
+            <div class="card-body">
+                <span class="d-flex flex-wrap flex-row availableBooks" th:each="availableBook: ${availableBooks}">
+                    <div class="card m-5 h-30">
                         <div class="card-body">
                             <img class="card-img-top" th:src="${availableBook.picture}" th:alt="${availableBook.title}">
                             <h5 class="card-title" th:text="${availableBook.title}"></h5>
                             <p class="card-text" th:text="${availableBook.author}"></p>
                             <p class="card-text color-secondary fw-light" th:text="${availableBook.genres}"></p>
-                            <form th:if="${adminInterface} == true" th:action="@{/admin/portal/${availableBook.id}}" th:method="post">
+                            <form class="mb-3" th:if="${adminInterface} == true" th:action="@{/admin/portal/${availableBook.id}}" th:method="post">
                             <a href="#" class="btn btn-primary">Add to cart</a>
                             </form>
                             <!-- TODO: Replace with button and AJAX call onclick -->
@@ -53,9 +52,9 @@
                                 <input type="submit" class="btn btn-danger" value="Delete book"/>
                             </form>
                         </div>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </span>
+            </div>
         </div>
         <!-- Button trigger modal -->
         <button type="button" th:if="${adminInterface} == true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newBookModal">
