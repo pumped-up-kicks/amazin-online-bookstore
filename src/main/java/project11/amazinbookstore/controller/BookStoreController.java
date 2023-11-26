@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project11.amazinbookstore.model.Book;
 import project11.amazinbookstore.model.BookDTO;
+import project11.amazinbookstore.model.BookRequestDTO;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.UserService;
 
@@ -47,6 +48,7 @@ public class BookStoreController {
             model.addAttribute("adminInterface", false);
         }
         model.addAttribute("book", new BookDTO());
+        model.addAttribute("bookRequest", new BookRequestDTO());
         model.addAttribute("availableBooks", bookService.getAllAvailableBooks());
         return "index";
     }
