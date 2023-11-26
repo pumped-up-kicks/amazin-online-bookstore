@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import project11.amazinbookstore.model.Role;
+import project11.amazinbookstore.repository.BookRepository;
 import project11.amazinbookstore.services.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,6 +35,9 @@ class UserRegistrationControllerMockTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private BookRepository bookRepository;
 
     private ObjectWriter ow = new ObjectMapper().writer();
 

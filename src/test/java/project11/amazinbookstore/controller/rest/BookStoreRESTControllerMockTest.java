@@ -14,7 +14,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import project11.amazinbookstore.model.Book;
+import project11.amazinbookstore.repository.BookRepository;
 import project11.amazinbookstore.services.BookService;
+import project11.amazinbookstore.services.UserService;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -39,6 +42,12 @@ class BookStoreRESTControllerMockTest {
 
     @MockBean
     private BookService bookService;
+
+    @MockBean
+    private UserService userService;
+
+    @MockBean
+    private BookRepository bookRepository;
 
     private ObjectWriter ow = new ObjectMapper().writer();
 
