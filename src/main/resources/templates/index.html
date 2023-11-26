@@ -49,18 +49,18 @@
     <button type="button" th:if="${adminInterface} == true" class="btn btn-primary mb-3 ma-3" data-bs-toggle="modal" data-bs-target="#newBookModal">
         Create book
     </button>
-    <div class="card mw-90 p-3 overflow-auto" style="height: 600px;">
+    <div class="card h-100 mw-90 p-3 overflow-auto" style="height: 600px;">
         <div class="card-body">
             <div class="d-flex mw-100 flex-wrap flex-row">
                 <div class="card m-5 availableBooks overflow-scroll" style="width: 320px;" th:each="availableBook: ${availableBooks}">
                     <div class="card-body">
-                        <div class="overflow-hidden w-100" style="height: 200px;">
-                            <img class="card-img-top w-100" th:src="${availableBook.picture}" th:alt="${availableBook.title}">
-                        </div>
+<!--                        <div class="overflow-hidden w-100" style="height: 200px;">-->
+                        <img class="card-img-top object-fit-cover border rounded" th:src="${availableBook.picture}" th:alt="${availableBook.title}">
+<!--                        </div>-->
                         <h5 class="card-title" th:text="${availableBook.title}"></h5>
-                        <p class="card-text" th:text="${availableBook.publisher}"></p>
-                        <p class="card-text color-secondary fw-light" th:text="${availableBook.isbn}"></p>
-                        <p class="card-text color-secondary fw-light" th:text="${availableBook.inventoryQuantity} + ' - copies'"></p>
+                        <p class="card-text" th:text="|Publisher: ${availableBook.publisher}|"></p>
+                        <p class="card-text color-secondary fw-light" th:text="|ISBN: ${availableBook.isbn}|"></p>
+                        <p class="card-text color-secondary fw-light" th:text="|Quantity: ${availableBook.inventoryQuantity}|"></p>
                         <button type="button" th:if="${adminInterface} == false" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                             Add to cart
                         </button>
