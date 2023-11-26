@@ -35,9 +35,15 @@ public class BookService {
      * @return the added book.
      */
     public Book addBook(Book book) {
-        Book newBook = bookRepository.save(book);
-        log.info("Added new book with title " + newBook.getTitle());
-        return newBook;
+        Book existedBook = bookRepository.findByIsbn(book.getIsbn()).orElse(null);
+        // isbn is not existed
+        if (existedBook == null) {
+            Book newBook = bookRepository.save(book);
+            log.info("Added new book with title " + newBook.getTitle());
+            return newBook;
+        }
+        log.warn("Cannot create a book with the same isbn");
+        return null;
     }
 
     /**
