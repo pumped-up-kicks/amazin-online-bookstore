@@ -20,15 +20,16 @@ git config commit.template .github/.gitmessage
 ![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/52aff7cd-8d3c-4596-b3d4-7a100c1e3274)
 
 ## UML Class Diagram
+![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/1903ffba-35c7-4171-99d0-624288ee1c53)
+
 
 ## Agile Development Details
 ### Functionality
 Currently, the bookstore admin page has the following features:
 - Access the administrative view, the bookstore view, and the user cart page
-- Create a new book, with a specified name, genres, picture, author, and quantity in stock
+- Create a new book, with a specified name, isbn, picture, publisher, and quantity in stock
 - Update the information of a particular book
 - Remove books entirely from the bookstore
-- View all or specific books stored in the bookstore with provided id or book name
 
 The bookstore customer page also has the following abilities:
 - View all or specific books stored in the bookstore by providing id or book name
@@ -41,12 +42,14 @@ Security and authentication:
 - The UI will display the error and have friendly user experience
   
 These features will be available next Sprint:
+- View all the books that bookstore created (DONE)
+- Add items to their cart with specified quantity (DONE)
+- View cart items (DONE)
+- Remove items completely from cart (DONE)
+- Checkout functionality (DONE)
 - See their purchase history 
 - See a recommendations page
-- Add items to their cart
-- View cart items
-- Change quantities of specific items in cart
-- Remove items completely from cart
+- Change quantities to remove items in cart
 
 ### Development and release process
 The project must have a main branch, and each contributor should create a new branch for each of the
@@ -80,11 +83,11 @@ repo, integrated with CI, and the app should be up and running on Azure. Cloning
 the pom.xml should provide us with a ready-to-run JAR file.
 We will also inspect the README file, the Issues, the Kanban, the code reviews, the tests, and we will
 verify that everybody is participating in all aspects of the project (if that is not the case, different team
-members will end up with different grades).
+members will end up with different grades).</br>
 Milestone 2: Alpha Release. Give a 10-15 minute demo during the lab on November 27th.
 For the alpha release your system should be somewhat usable, although not feature-complete. This
 means that a user should be able to use several related features of the app and do something reasonably
-useful. The README on GitHub must be updated with a plan for the next sprint.
+useful. The README on GitHub must be updated with a plan for the next sprint.</br>
 Milestone 3 - Final demo. Project complete. Give a 10-15 minute demo during the lab on December 8th
 
 ### Project report
