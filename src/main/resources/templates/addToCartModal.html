@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="modal">
+  <div class="modal fade" id="newBookModal" tabindex="-1" aria-labelledby="newBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="newBookModalLabel">Add To Cart</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/admin/portal/add}" th:object="${book}" method="post">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <label for="formGroupExampleInput" class="form-label">Title</label>
+              <input type="text" class="form-control" th:field="*{title}" placeholder="Title"/>
+            </div>
+            <div class="row mb-3">
+              <label for="formGroupExampleInput" class="form-label">Author</label>
+              <input type="text" class="form-control" th:field="*{author}" placeholder="Author"/>
+            </div>
+            <div class="row mb-3">
+              <label for="formGroupExampleInput" class="form-label">Genres</label>
+              <input type="text" class="form-control" th:field="*{genres}" placeholder="Genres"/>
+            </div>
+            <div class="row mb-3">
+              <!-- TODO: Improve this! -->
+              <label for="formGroupExampleInput" class="form-label">Picture</label>
+              <input type="text" class="form-control" th:field="*{picture}" placeholder="Picture"/>
+            </div>
+            <div class="row mb-3">
+              <!-- TODO: Improve this! -->
+              <label for="formGroupExampleInput" class="form-label">Quantity</label>
+              <input type="text" class="form-control" th:field="*{inventoryQuantity}" placeholder="Quantity"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-primary" value="Add book"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
