@@ -64,7 +64,7 @@
                                                 <div class="row mb-3">
                                                     <label class="form-label">Quantity</label>
                                                     <input type="hidden" th:value="${availableBook.id}" name="bookId" />
-                                                    <input type="text" class="form-control" th:field="*{quantity}" placeholder="Quantity"/>
+                                                    <input type="number" class="form-control" th:field="*{quantity}" placeholder="Quantity" min="1"/>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
