@@ -28,9 +28,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
+            <li class="nav-item" th:if="${adminInterface} == false">
+                <a class="nav-link" href="/shoppingcart">Shopping Cart</a>
+            </li>
         </ul>
     </div>
 </nav>
+
+<div th:if="${param.successfulCheckout}" class="alert alert-primary p-2 mb-3 text-dark col-6 align-middle w-50 offset-3">
+    <div class="card-text">You have successfully checked out!</div>
+</div>
+
 <div class="p-3 w-100">
     <div class="card-body">
         <h2 class="card-title">Welcome to the Amazin Book Store</h2>
