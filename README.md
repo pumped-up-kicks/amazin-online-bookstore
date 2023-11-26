@@ -17,7 +17,8 @@ git config commit.template .github/.gitmessage
 ```
 
 ## Database Schema
-![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/76e90c23-5b24-4a8e-a19a-98337f85cf07)
+![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/52aff7cd-8d3c-4596-b3d4-7a100c1e3274)
+
 
 ## Agile Development Details
 ### Functionality
