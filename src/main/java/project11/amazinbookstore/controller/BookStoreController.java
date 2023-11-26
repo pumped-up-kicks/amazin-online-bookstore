@@ -59,9 +59,8 @@ public class BookStoreController {
      * @param book the book to add.
      * @return the file containing the page to return to.
      */
-    @RequestMapping(value = "/admin/portal/add", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String addBook(BookDTO book) {
+    @PostMapping("/admin/portal/add")
+    public String addBook(@ModelAttribute("book") BookDTO book) {
         bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity()));
         return "redirect:/";
     }
