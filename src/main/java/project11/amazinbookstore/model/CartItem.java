@@ -1,6 +1,7 @@
 package project11.amazinbookstore.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -18,15 +19,21 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Need relationship with registered user
-//    @OneToOne(fetch = FetchType.EAGER, mappedBy = "", targetEntity = RegisteredUser.class)
-//    private RegisteredUser user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private RegisteredUser customer;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JsonBackReference
+    @JsonManagedReference
     private Book book;
 
     private int quantity;
+
+    public CartItem(RegisteredUser customer, Book book, int quantity) {
+        this.customer = customer;
+        this.book = book;
+        this.quantity = quantity;
+    }
 
     /**
      * Set the id of the cart item.
@@ -44,13 +51,20 @@ public class CartItem {
         return id;
     }
 
-//    public RegisteredUser getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(RegisteredUser user) {
-//        this.user = user;
-//    }
+    /**
+     * Get the customer.
+     * @return the customer.
+     */
+    public RegisteredUser getCustomer() {
+        return customer;
+    }
+
+    /**
+     * Set the customer
+     */
+    public void setCustomer(RegisteredUser customer) {
+        this.customer = customer;
+    }
 
     /**
      * Get the book in the cart.
