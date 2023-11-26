@@ -44,11 +44,11 @@
                             <h5 class="card-title" th:text="${availableBook.title}"></h5>
                             <p class="card-text" th:text="${availableBook.author}"></p>
                             <p class="card-text color-secondary fw-light" th:text="${availableBook.genres}"></p>
-                            <form class="mb-3" th:if="${adminInterface} == true" th:action="@{/admin/portal/${availableBook.id}}" th:method="post">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
+                            <form class="mb-3" th:if="${adminInterface} == false" th:action="@{/admin/portal/${availableBook.id}}" th:method="post">
+                                <input type="submit" class="btn btn-primary" value="Add to cart">
                             </form>
                             <!-- TODO: Replace with button and AJAX call onclick -->
-                            <form th:if="${adminInterface} == true" th:action="@{/admin/portal/${availableBook.id}}" th:method="delete">
+                            <form th:if="${adminInterface} == true" th:action="@{/admin/portal/delete/{bookId}(bookId=${availableBook.id})}" th:method="post">
                                 <input type="submit" class="btn btn-danger" value="Delete book"/>
                             </form>
                         </div>

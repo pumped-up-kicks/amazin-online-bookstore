@@ -70,7 +70,7 @@ public class BookStoreController {
      * @param id the id of the book.
      * @return the removed book.
      */
-    @DeleteMapping("/admin/portal/{id}")
+    @PostMapping("/admin/portal/delete/{id}")
     public String deleteBook(@PathVariable String id) {
         bookService.deleteBook(Long.parseLong(id));
         return "redirect:/";
