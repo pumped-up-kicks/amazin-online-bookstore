@@ -1,5 +1,6 @@
 package project11.amazinbookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,10 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Book {
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="cart_item_id", referencedColumnName="id")
-    @JsonManagedReference
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "book")
+//    @JoinColumn(name="cart_item_id", referencedColumnName="id")
+    //@JoinColumn()
+    @JsonBackReference
     private List<CartItem> cartItem = new ArrayList<>();
 
     @Id
@@ -28,8 +30,9 @@ public class Book {
     private Long id;
 
     private String title;
-    private String author;
-    private String genres;
+    private String publisher;
+    @Column(unique = true)
+    private String isbn;
     private String picture;
 
     @Column(name = "inventory_quantity")
@@ -38,15 +41,15 @@ public class Book {
     /**
      * Creates a book with the given title, author, genres, picture, and quantity.
      * @param title the book title.
-     * @param author the book author.
-     * @param genres the genres of the book.
+     * @param publisher the book author.
+     * @param isbn the genres of the book.
      * @param picture a picture of the book.
      * @param inventoryQuantity the stock of the book in inventory.
      */
-    public Book(String title, String author, String genres, String picture, int inventoryQuantity) {
+    public Book(String title, String publisher, String isbn, String picture, int inventoryQuantity) {
         this.title = title;
-        this.author = author;
-        this.genres = genres;
+        this.publisher = publisher;
+        this.isbn = isbn;
         this.picture = picture;
         this.inventoryQuantity = inventoryQuantity;
     }
@@ -103,32 +106,32 @@ public class Book {
      * Gets the author of the book.
      * @return the book author.
      */
-    public String getAuthor() {
-        return author;
+    public String getPublisher() {
+        return publisher;
     }
 
     /**
      * Sets the author of the book.
      * @param author the book author.
      */
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setPublisher(String author) {
+        this.publisher = author;
     }
 
     /**
      * Gets the genres of the book.
      * @return the book genres.
      */
-    public String getGenres() {
-        return genres;
+    public String getIsbn() {
+        return isbn;
     }
 
     /**
      * Sets the genres of the book.
      * @param genres the book genres.
      */
-    public void setGenres(String genres) {
-        this.genres = genres;
+    public void setIsbn(String genres) {
+        this.isbn = genres;
     }
 
     /**
@@ -168,11 +171,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(genres, book.genres) && Objects.equals(picture, book.picture);
+        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(publisher, book.publisher) && Objects.equals(isbn, book.isbn) && Objects.equals(picture, book.picture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, genres, picture);
+        return Objects.hash(id, title, publisher, isbn, picture);
     }
 }

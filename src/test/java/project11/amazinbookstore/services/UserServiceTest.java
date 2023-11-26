@@ -15,7 +15,7 @@ class UserServiceTest {
 
     @Test
     void testAddNewUser() {
-        assertTrue(userService.addNewUser("user1", "password1", Role.USER));
-        assertFalse(userService.addNewUser("user1", "password1", Role.USER));
+        assertTrue(userService.addNewUser("JoeBiden999Fornite", "password1", Role.USER));
+        assertFalse(userService.addNewUser("JoeBiden999Fornite", "password1", Role.USER));
     }
 }

@@ -36,14 +36,14 @@ class BookTest {
 
     @Test
     void setAuthor() {
-        book.setAuthor("new author");
-        assertEquals("new author", book.getAuthor());
+        book.setPublisher("new author");
+        assertEquals("new author", book.getPublisher());
     }
 
     @Test
     void setGenres() {
-        book.setGenres("new genres");
-        assertEquals("new genres", book.getGenres());
+        book.setIsbn("new genres");
+        assertEquals("new genres", book.getIsbn());
     }
 
     @Test

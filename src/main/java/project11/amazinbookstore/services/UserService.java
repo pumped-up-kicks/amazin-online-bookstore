@@ -76,4 +76,8 @@ public class UserService {
 
         return manager;
     }
+
+    public RegisteredUser findUserByUserName(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
 }

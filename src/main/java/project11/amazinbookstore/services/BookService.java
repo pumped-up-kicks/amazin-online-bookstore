@@ -86,8 +86,8 @@ public class BookService {
 
         if (existedBook != null) {
             String updatedTitle = updatedBook.getTitle();
-            String updatedAuthor = updatedBook.getAuthor();
-            String updatedGenres = updatedBook.getGenres();
+            String updatedAuthor = updatedBook.getPublisher();
+            String updatedGenres = updatedBook.getIsbn();
             String updatedPicture = updatedBook.getPicture();
             int updatedInventoryQuantity = updatedBook.getInventoryQuantity();
 
@@ -101,15 +101,15 @@ public class BookService {
 
             if (updatedAuthor != null &&
                     !updatedAuthor.isEmpty() &&
-                    !Objects.equals(updatedAuthor, existedBook.getAuthor())) {
-                existedBook.setAuthor(updatedAuthor);
+                    !Objects.equals(updatedAuthor, existedBook.getPublisher())) {
+                existedBook.setPublisher(updatedAuthor);
                 log.info("Successfully updated author " + updatedAuthor);
             }
 
             if (updatedGenres != null &&
                     !updatedGenres.isEmpty() &&
-                    !Objects.equals(updatedGenres, existedBook.getGenres())) {
-                existedBook.setGenres(updatedGenres);
+                    !Objects.equals(updatedGenres, existedBook.getIsbn())) {
+                existedBook.setIsbn(updatedGenres);
                 log.info("Successfully updated genres " + updatedGenres);
             }
 
