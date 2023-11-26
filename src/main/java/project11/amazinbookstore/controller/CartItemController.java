@@ -34,7 +34,11 @@ public class CartItemController {
         List<CartItem> result;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         result = cartItemService.addBookToCart(requestDTO.getBookId(), auth.getName(), requestDTO.getQuantity());
-        log.info(result.toString());
-        return "redirect:/";
+        if (result != null) {
+            log.info(result.toString());
+            return "redirect:/";
+        } else {
+            return "redirect:/?addToCartError";
+        }
     }
 }
