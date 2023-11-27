@@ -17,16 +17,16 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li th:if="${authorities.contains('ROLE_ANONYMOUS')}" class="nav-item">
+                    <li th:if="${authorities.isAnonymous()}" class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
-                    <li th:if="${authorities.contains('ROLE_ANONYMOUS')}" class="nav-item">
+                    <li th:if="${authorities.isAnonymous()}" class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>
-                    <li th:if="${!authorities.contains('ROLE_ANONYMOUS')}" class="nav-item">
+                    <li th:if="${!authorities.isAnonymous()}" class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
-                    <li th:if="${authorities.contains('USER')}" class="nav-item">
+                    <li th:if="${authorities.isUser()}" class="nav-item">
                         <a class="nav-link" href="/shoppingcart">Shopping Cart</a>
                     </li>
                 </ul>
