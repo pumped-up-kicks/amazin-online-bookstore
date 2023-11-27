@@ -18,6 +18,13 @@
             <button type="button" th:if="${!bookCardDTO.authorities.isAdmin() && !bookCardDTO.isShoppingCartContext()}" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                 Add to cart
             </button>
+            <div th:if="${bookCardDTO.isShoppingCartContext()}">
+                <p class="card-text" th:text="Quantity +ㅤ+ ${availableBook.quantity}"></p>
+
+                <form th:action="@{/shoppingcart/delete/{bookId}(bookId=${availableBook.getId()})}">
+                    <input type="submit" class="btn btn-danger" value="Delete book"/>
+                </form>
+            </div>
             <!-- TODO: Replace with button and AJAX call onclick -->
             <form th:if="${bookCardDTO.authorities.isAdmin()} == true" th:action="@{/admin/portal/delete/{bookId}(bookId=${availableBook.id})}" th:method="post">
                 <input type="submit" class="btn btn-danger" value="Delete book"/>

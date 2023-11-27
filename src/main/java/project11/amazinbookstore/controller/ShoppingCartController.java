@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project11.amazinbookstore.model.AuthoritiesDTO;
 import project11.amazinbookstore.model.BookCardDTO;
-import project11.amazinbookstore.model.CartBookDTO;
+import project11.amazinbookstore.model.CartBookWrapperDTO;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.CartItemService;
 
@@ -30,7 +30,7 @@ public class ShoppingCartController {
     public String shoppingCartPage(Model model){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("Books", CartBookDTO.getCartBookDTOList(cartItemService.findItemsInUserCart(username)));
+        model.addAttribute("Books", CartBookWrapperDTO.getCartBookDTOList(cartItemService.findItemsInUserCart(username)));
 
         AuthoritiesDTO authoritiesDTO = new AuthoritiesDTO(auth);
         model.addAttribute("authorities", authoritiesDTO);
