@@ -42,6 +42,9 @@
 <div class="p-3 w-100">
     <h2 class="card-title">Welcome to the Amazin Book Store</h2>
     <p class="card-text">Books and Books and even more Books ...</p>
+    <div th:if="${param.addToCartError}" class="alert alert-danger p-2 mb-3 text-dark col-6 align-middle w-50 offset-3">
+        <div class="alert-text">The item could not be added.</div>
+    </div>
     <!-- Button trigger modal -->
     <button type="button" th:if="${adminInterface} == true" class="btn btn-primary mb-3 ma-3" data-bs-toggle="modal" data-bs-target="#newBookModal">
         Create book
@@ -57,6 +60,7 @@
                         <h5 class="card-title" th:text="${availableBook.title}"></h5>
                         <p class="card-text" th:text="${availableBook.publisher}"></p>
                         <p class="card-text color-secondary fw-light" th:text="${availableBook.isbn}"></p>
+                        <p class="card-text color-secondary fw-light" th:text="${availableBook.inventoryQuantity} + ' - copies'"></p>
                         <button type="button" th:if="${adminInterface} == false" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                             Add to cart
                         </button>

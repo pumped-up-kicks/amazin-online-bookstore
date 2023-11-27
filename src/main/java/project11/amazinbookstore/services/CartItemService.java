@@ -29,6 +29,7 @@ public class CartItemService{
         RegisteredUser user = userService.findUserByUserName(userName);
         Book book = bookService.findBookById(bookId);
         List<CartItem> cartItems = repository.findCartItemsByCustomer(user).orElse(null);
+        List<CartItem> returnedCart = null;
 
         if (quantity <= 0) {
             return repository.findCartItemsByCustomer(user).orElse(null);
@@ -38,17 +39,27 @@ public class CartItemService{
         CartItem item = repository.findCartItemByCustomerAndBook(user, book).orElse(null);
         assert cartItems != null;
         if (cartItems.isEmpty() || item == null) {
-            CartItem newItem = new CartItem(user, book, quantity);
-            repository.save(newItem);
-            log.info("Added book " + book.getTitle() + " for user " + userName);
+            if (quantity <= book.getInventoryQuantity()) {
+                CartItem newItem = new CartItem(user, book, quantity);
+                repository.save(newItem);
+                log.info("Added book " + book.getTitle() + " for user " + userName);
+                returnedCart = repository.findCartItemsByCustomer(user).orElse(null);
+            } else {
+                log.info("Quantity " + quantity + " invalid for book " + book.getTitle() + " with inventory " + book.getInventoryQuantity());
+            }
         } else {
             // Case 3: When book existed
             int newQuantity = item.getQuantity() + quantity;
-            item.setQuantity(newQuantity);
-            repository.save(item);
-            log.info("Added book " + book.getTitle() + " for user " + userName);
+            if (newQuantity <= book.getInventoryQuantity()) {
+                item.setQuantity(newQuantity);
+                repository.save(item);
+                log.info("Added book " + book.getTitle() + " for user " + userName);
+                returnedCart = repository.findCartItemsByCustomer(user).orElse(null);
+            } else {
+                log.info("Quantity " + newQuantity + " invalid for book " + book.getTitle() + " with inventory " + book.getInventoryQuantity());
+            }
         }
-        return repository.findCartItemsByCustomer(user).orElse(null);
+        return returnedCart;
     }
 
     @Transactional
