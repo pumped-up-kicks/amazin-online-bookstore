@@ -54,6 +54,12 @@ public class Book {
         this.inventoryQuantity = inventoryQuantity;
     }
 
+    public Book(Book book) {
+        this(book.title, book.publisher, book.isbn, book.picture, book.inventoryQuantity);
+        book.id = id;
+        book.cartItem = cartItem;
+    }
+
     /**
      * Sets the id of the book.
      * @param id the book id.

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project11.amazinbookstore.model.AuthoritiesDTO;
+import project11.amazinbookstore.model.BookCardDTO;
+import project11.amazinbookstore.model.CartBookDTO;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.CartItemService;
 
@@ -28,10 +30,11 @@ public class ShoppingCartController {
     public String shoppingCartPage(Model model){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("Books", cartItemService.findItemsInUserCart(username));
+        model.addAttribute("Books", CartBookDTO.getCartBookDTOList(cartItemService.findItemsInUserCart(username)));
 
         AuthoritiesDTO authoritiesDTO = new AuthoritiesDTO(auth);
         model.addAttribute("authorities", authoritiesDTO);
+        model.addAttribute("bookCardDTO", new BookCardDTO(auth, BookCardDTO.Context.SHOPPING_CART));
 
         if (authoritiesDTO.isUser()) {
             return "shoppingCart";

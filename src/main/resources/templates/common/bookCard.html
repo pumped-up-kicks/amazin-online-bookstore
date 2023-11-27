@@ -14,8 +14,8 @@
             <h5 class="card-title" th:text="${availableBook.title}"></h5>
             <p class="card-text" th:text="|Publisher: ${availableBook.publisher}|"></p>
             <p class="card-text color-secondary fw-light" th:text="|ISBN: ${availableBook.isbn}|"></p>
-            <p class="card-text color-secondary fw-light" th:text="|Quantity: ${availableBook.inventoryQuantity}|"></p>
-            <button type="button" th:if="${bookCardDTO.authorities.isAdmin()} == false" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
+            <p th:if="${!bookCardDTO.isShoppingCartContext()}" class="card-text color-secondary fw-light" th:text="|Quantity: ${availableBook.inventoryQuantity}|"></p>
+            <button type="button" th:if="${!bookCardDTO.authorities.isAdmin() && !bookCardDTO.isShoppingCartContext()}" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                 Add to cart
             </button>
             <!-- TODO: Replace with button and AJAX call onclick -->
