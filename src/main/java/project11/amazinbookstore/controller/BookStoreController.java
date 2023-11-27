@@ -56,7 +56,7 @@ public class BookStoreController {
 
         AuthoritiesDTO authorities = new AuthoritiesDTO(auth);
         model.addAttribute("authorities", authorities);
-        model.addAttribute("bookCardDTO", new BookCardDTO(auth));
+        model.addAttribute("bookCardDTO", new BookCardDTO(auth, BookCardDTO.Context.HOME));
         return "index";
     }
 
