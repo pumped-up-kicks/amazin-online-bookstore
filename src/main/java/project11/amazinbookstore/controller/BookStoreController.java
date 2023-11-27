@@ -8,10 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project11.amazinbookstore.model.AuthoritiesDTO;
-import project11.amazinbookstore.model.Book;
-import project11.amazinbookstore.model.BookDTO;
-import project11.amazinbookstore.model.BookRequestDTO;
+import project11.amazinbookstore.model.*;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.UserService;
 
@@ -59,6 +56,7 @@ public class BookStoreController {
 
         AuthoritiesDTO authorities = new AuthoritiesDTO(auth);
         model.addAttribute("authorities", authorities);
+        model.addAttribute("bookCardDTO", new BookCardDTO(auth));
         return "index";
     }
 
