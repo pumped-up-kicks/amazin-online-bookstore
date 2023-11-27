@@ -19,9 +19,8 @@
                 Add to cart
             </button>
             <div th:if="${bookCardDTO.isShoppingCartContext()}">
-                <p class="card-text" th:text="Quantity +ㅤ+ ${availableBook.quantity}"></p>
-
-                <form th:action="@{/shoppingcart/delete/{bookId}(bookId=${availableBook.getId()})}">
+                <p class="card-text" th:text="Quantity +ㅤ+ ${availableBook.quantity}"></p
+                <form th:action="@{/shoppingcart/delete/{bookId}(bookId=${availableBook.id})}">
                     <input type="submit" class="btn btn-danger" value="Delete book"/>
                 </form>
             </div>

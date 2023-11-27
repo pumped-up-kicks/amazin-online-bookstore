@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import project11.amazinbookstore.model.AuthoritiesDTO;
 import project11.amazinbookstore.model.BookCardDTO;
 import project11.amazinbookstore.model.CartBookWrapperDTO;
+import project11.amazinbookstore.model.CartItem;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.CartItemService;
+
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 @Slf4j
@@ -30,7 +33,8 @@ public class ShoppingCartController {
     public String shoppingCartPage(Model model){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("Books", CartBookWrapperDTO.getCartBookDTOList(cartItemService.findItemsInUserCart(username)));
+        List<CartItem> cartItemList = cartItemService.findItemsInUserCart(username);
+        model.addAttribute("Books", CartBookWrapperDTO.getCartBookDTOList(cartItemList));
 
         AuthoritiesDTO authoritiesDTO = new AuthoritiesDTO(auth);
         model.addAttribute("authorities", authoritiesDTO);

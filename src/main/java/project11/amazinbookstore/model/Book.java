@@ -56,8 +56,8 @@ public class Book {
 
     public Book(Book book) {
         this(book.title, book.publisher, book.isbn, book.picture, book.inventoryQuantity);
-        book.id = id;
-        book.cartItem = cartItem;
+        this.id = book.id;
+        this.cartItem = book.cartItem;
     }
 
     /**
@@ -183,5 +183,14 @@ public class Book {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, publisher, isbn, picture);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", inventoryQuantity=" + inventoryQuantity +
+                '}';
     }
 }
