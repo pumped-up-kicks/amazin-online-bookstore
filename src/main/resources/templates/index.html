@@ -35,6 +35,7 @@
                         <p class="card-text" th:text="|Publisher: ${availableBook.publisher}|"></p>
                         <p class="card-text color-secondary fw-light" th:text="|ISBN: ${availableBook.isbn}|"></p>
                         <p class="card-text color-secondary fw-light" th:text="|Quantity: ${availableBook.inventoryQuantity}|"></p>
+                        <p class="card-text color-secondary fw-light" th:text="|Price: ${'&#36;'}${availableBook.price}|"></p>
                         <button type="button" th:if="${adminInterface} == false" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                             Add to cart
                         </button>
@@ -104,6 +105,10 @@
                         <!-- TODO: Improve this! -->
                         <label for="formGroupExampleInput" class="form-label">Quantity</label>
                         <input type="text" class="form-control" th:field="*{inventoryQuantity}" placeholder="Quantity"/>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Price</label>
+                        <input type="text" class="form-control" th:field="*{price}" placeholder="Price"/>
                     </div>
                 </div>
                 <div class="modal-footer">

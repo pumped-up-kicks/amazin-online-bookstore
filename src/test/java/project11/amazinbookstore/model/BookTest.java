@@ -13,7 +13,7 @@ class BookTest {
 
     @BeforeEach
     void setUp() {
-        book = new Book("title", "author", "genre", "picture", 5);
+        book = new Book("title", "author", "genre", "picture", 5, 12);
     }
 
     @Test
@@ -60,7 +60,7 @@ class BookTest {
 
     @Test
     void testEquals() {
-        Book copyBook = new Book("title", "author", "genre", "picture", 5);
+        Book copyBook = new Book("title", "author", "genre", "picture", 5, 12);
         assertEquals(copyBook, book);
 
         copyBook = new Book();

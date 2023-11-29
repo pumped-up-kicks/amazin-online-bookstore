@@ -35,6 +35,8 @@ public class Book {
     private String isbn;
     private String picture;
 
+    private int price;
+
     @Column(name = "inventory_quantity")
     private int inventoryQuantity;
 
@@ -46,12 +48,13 @@ public class Book {
      * @param picture a picture of the book.
      * @param inventoryQuantity the stock of the book in inventory.
      */
-    public Book(String title, String publisher, String isbn, String picture, int inventoryQuantity) {
+    public Book(String title, String publisher, String isbn, String picture, int inventoryQuantity, int price) {
         this.title = title;
         this.publisher = publisher;
         this.isbn = isbn;
         this.picture = picture;
         this.inventoryQuantity = inventoryQuantity;
+        this.price = price;
     }
 
     /**
@@ -156,6 +159,14 @@ public class Book {
      */
     public int getInventoryQuantity() {
         return inventoryQuantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     /**
