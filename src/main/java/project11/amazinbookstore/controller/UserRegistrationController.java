@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project11.amazinbookstore.model.AuthoritiesDTO;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.services.UserService;
 
@@ -34,13 +36,14 @@ public class UserRegistrationController {
      * @return the file containing the login page.
      */
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
         // FIXME: do not let user return to login page if already signed in.
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ANONYMOUS"))) {
             // Anonymous user
             log.info("Anonymous user detected");
+            model.addAttribute("authorities", new AuthoritiesDTO(auth));
             return "login";
         }
         // Logged in user
@@ -52,13 +55,14 @@ public class UserRegistrationController {
      * @return the file containing the registration page.
      */
     @GetMapping("/register")
-    public String register(){
+    public String register(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ANONYMOUS"))) {
             // Anonymous user
             log.info("Anonymous user detected");
+            model.addAttribute("authorities", new AuthoritiesDTO(auth));
             return "registration";
         }
         // Logged-in user

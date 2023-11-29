@@ -4,14 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project11.amazinbookstore.model.AuthoritiesDTO;
 import project11.amazinbookstore.model.Book;
 import project11.amazinbookstore.model.BookDTO;
 import project11.amazinbookstore.model.BookRequestDTO;
 import project11.amazinbookstore.services.BookService;
 import project11.amazinbookstore.services.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Provides endpoints for typical website functions and interactions with the book database.
@@ -50,6 +56,9 @@ public class BookStoreController {
         model.addAttribute("book", new BookDTO());
         model.addAttribute("bookRequest", new BookRequestDTO());
         model.addAttribute("availableBooks", bookService.getAllAvailableBooks());
+
+        AuthoritiesDTO authorities = new AuthoritiesDTO(auth);
+        model.addAttribute("authorities", authorities);
         return "index";
     }
 
@@ -59,9 +68,8 @@ public class BookStoreController {
      * @param book the book to add.
      * @return the file containing the page to return to.
      */
-    @RequestMapping(value = "/admin/portal/add", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String addBook(BookDTO book) {
+    @PostMapping("/admin/portal/add")
+    public String addBook(@ModelAttribute("book") BookDTO book) {
         bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity(), book.getPrice()));
         return "redirect:/";
     }
