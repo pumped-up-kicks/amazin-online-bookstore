@@ -81,6 +81,32 @@ public class BookService {
     }
 
     /**
+     * Finds the book in the repository corresponding to the publisher.
+     * @param publisher the book title.
+     * @return the corresponding book.
+     */
+    public Book findBookByPublisher(String publisher) {
+        Book book = bookRepository.findByPublisher(publisher).orElse(null);
+        if (book != null) {
+            log.info("Found a book with publisher " + book.getPublisher());
+        }
+        return book;
+    }
+
+    /**
+     * Finds the book in the repository corresponding to the publisher.
+     * @param isbn the book title.
+     * @return the corresponding book.
+     */
+    public Book findBookByIsbn(String isbn) {
+        Book book = bookRepository.findByIsbn(isbn).orElse(null);
+        if (book != null) {
+            log.info("Found a book with isbn " + book.getIsbn());
+        }
+        return book;
+    }
+
+    /**
      * Updates a book in the repository corresponding to an id.
      * @param bookId the book id.
      * @param updatedBook the new book value.
@@ -96,6 +122,7 @@ public class BookService {
             String updatedGenres = updatedBook.getIsbn();
             String updatedPicture = updatedBook.getPicture();
             int updatedInventoryQuantity = updatedBook.getInventoryQuantity();
+            int updatedPrice = updatedBook.getPrice();
 
             // For update we will check if the updated value is not null, empty and updated value is not the same as old one
             if (updatedTitle != null &&
@@ -129,6 +156,11 @@ public class BookService {
             if (updatedInventoryQuantity > 0 && updatedInventoryQuantity != existedBook.getInventoryQuantity()) {
                 existedBook.setInventoryQuantity(updatedInventoryQuantity);
                 log.info("Successfully updated inventory quantity " + updatedInventoryQuantity);
+            }
+
+            if (updatedPrice > 0 && updatedPrice != existedBook.getInventoryQuantity()) {
+                existedBook.setPrice(updatedPrice);
+                log.info("Successfully updated price " + updatedPrice);
             }
         }
         return existedBook;

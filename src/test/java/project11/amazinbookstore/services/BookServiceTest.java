@@ -23,7 +23,7 @@ class BookServiceTest {
 
     @BeforeEach
     void setUp() {
-        testBook = new Book("title", "author", "isbn1", "picture", 5);
+        testBook = new Book("title", "author", "isbn1", "picture", 5, 12);
     }
 
     @AfterEach
@@ -55,7 +55,7 @@ class BookServiceTest {
     void testFindBookByTitleExists() {
         // FIXME: titles are not unique. There could be multiple books with the same title
         String title = "a peculiar title";
-        Book newBook = new Book(title, "author", "isbn2", "picture", 5);
+        Book newBook = new Book(title, "author", "isbn2", "picture", 5, 12);
         service.addBook(newBook);
         assertEquals(newBook, service.findBookByTitle(title));
     }

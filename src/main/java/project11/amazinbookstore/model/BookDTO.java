@@ -8,6 +8,8 @@ public class BookDTO {
 
     private int inventoryQuantity;
 
+    private int price;
+
     /**
      * Creates a book DTO with the given title, author, genres, and picture.
      * @param title the book title.
@@ -15,13 +17,15 @@ public class BookDTO {
      * @param isbn the genres of the book.
      * @param picture a picture of the book.
      * @param inventoryQuantity the stock of the book in inventory.
+     * @param price of the book
      */
-    public BookDTO(String title, String publisher, String isbn, String picture, int inventoryQuantity) {
+    public BookDTO(String title, String publisher, String isbn, String picture, int inventoryQuantity, int price) {
         this.title = title;
         this.publisher = publisher;
         this.isbn = isbn;
         this.picture = picture;
         this.inventoryQuantity = inventoryQuantity;
+        this.price = price;
     }
 
     /**
@@ -113,5 +117,13 @@ public class BookDTO {
      */
     public void setInventoryQuantity(int quantity) {
         this.inventoryQuantity = quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

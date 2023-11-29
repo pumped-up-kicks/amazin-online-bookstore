@@ -62,7 +62,7 @@ public class BookStoreController {
     @RequestMapping(value = "/admin/portal/add", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addBook(BookDTO book) {
-        bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity()));
+        bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity(), book.getPrice()));
         return "redirect:/";
     }
 
