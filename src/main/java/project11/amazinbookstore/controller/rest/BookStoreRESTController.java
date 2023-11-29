@@ -57,6 +57,16 @@ public class BookStoreRESTController {
         return service.findBookByTitle(title);
     }
 
+    @GetMapping
+    public Book findBookByIsbn(@RequestParam String isbn) {
+        return service.findBookByIsbn(isbn);
+    }
+
+    @GetMapping
+    public Book findBookByPublisher(@RequestParam String publisher) {
+        return service.findBookByPublisher(publisher);
+    }
+
     /**
      * Gives the service a book to add to its database.
      * @param book the book to add.
