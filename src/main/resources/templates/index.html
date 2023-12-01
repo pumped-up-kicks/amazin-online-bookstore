@@ -21,7 +21,13 @@
     </div>
     <!-- Button trigger modal -->
     <button type="button" th:if="${adminInterface} == true" class="btn btn-primary mb-3 ma-3" data-bs-toggle="modal" data-bs-target="#newBookModal">
-        Create book
+        Create book    <!-- Search bar section -->
+    <div class="input-group mb-4 p-3">
+      <form th:action="@{#}" method="get">
+        <input type="text" class="form-control" placeholder="Search for books..." aria-label="Search for books" aria-describedby="button-search">
+        <button class="btn btn-outline-secondary" type="submit" id="button-search">Search</button>
+      </form>
+    </div>
     </button>
     <div class="card h-100 mw-90 p-3 overflow-auto" style="height: 600px;">
         <div class="card-body">
