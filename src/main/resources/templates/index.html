@@ -25,7 +25,21 @@
     </button>
     <div class="card h-100 mw-90 p-3 overflow-auto" style="height: 600px;">
         <div class="card-body">
-            <div class="d-flex mw-100 flex-wrap flex-row">
+                            <div class="search-bar-container mb-3">
+                    <input type="text" class="form-control d-inline-block" placeholder="Search for books..." />
+                    <button class="btn btn-secondary d-inline-block" disabled>Search</button>
+                </div>
+
+                <div class="search-bar-container mb-3">
+                    <input type="text" class="form-control d-inline-block" placeholder="Search for books..." />
+                    <button class="btn btn-secondary d-inline-block" disabled>Search</button>
+                </div>
+
+                <div class="search-bar-container mb-3">
+                    <input type="text" class="form-control d-inline-block" placeholder="Search for books..." />
+                    <button class="btn btn-secondary d-inline-block" disabled>Search</button>
+                </div>
+<div class="d-flex mw-100 flex-wrap flex-row">
                 <div class="card m-5 availableBooks overflow-scroll" style="width: 320px;" th:each="availableBook: ${availableBooks}">
                     <div class="card-body">
 <!--                        <div class="overflow-hidden w-100" style="height: 200px;">-->
