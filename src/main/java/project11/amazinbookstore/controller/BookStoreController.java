@@ -68,7 +68,7 @@ public class BookStoreController {
      */
     @PostMapping("/admin/portal/add")
     public String addBook(@ModelAttribute("book") BookDTO book) {
-        bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity()));
+        bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity(), book.getPrice()));
         return "redirect:/";
     }
 

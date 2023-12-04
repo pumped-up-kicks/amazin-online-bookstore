@@ -15,6 +15,7 @@
             <p class="card-text" th:text="|Publisher: ${availableBook.publisher}|"></p>
             <p class="card-text color-secondary fw-light" th:text="|ISBN: ${availableBook.isbn}|"></p>
             <p th:if="${!bookCardDTO.isShoppingCartContext()}" class="card-text color-secondary fw-light" th:text="|Quantity: ${availableBook.inventoryQuantity}|"></p>
+            <p class="card-text color-secondary fw-light" th:text="|Price: ${'&#36;'}${availableBook.price}|"></p>
             <button type="button" th:if="${!bookCardDTO.authorities.isAdmin() && !bookCardDTO.isShoppingCartContext()}" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                 Add to cart
             </button>

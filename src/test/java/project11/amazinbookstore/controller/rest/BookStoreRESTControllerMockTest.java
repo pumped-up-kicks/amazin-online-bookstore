@@ -77,7 +77,7 @@ class BookStoreRESTControllerMockTest {
     @WithMockUser(roles = {"USER"})
     void testFindBookByIdExists() throws Exception {
         Long id = 1L;
-        Book mockOutput = new Book("title", "author", "genres", "picture", 5);
+        Book mockOutput = new Book("title", "author", "genres", "picture", 5, 12);
 
         when(bookService.findBookById(id)).thenReturn(mockOutput);
         mockMvc.perform(get("/api/book/1"))
@@ -89,7 +89,7 @@ class BookStoreRESTControllerMockTest {
     @WithMockUser(roles = {"USER"})
     void testFindBookByTitle() throws Exception {
         String title = "a peculiar title";
-        Book mockOutput = new Book(title, "author", "genres", "picture", 5);
+        Book mockOutput = new Book(title, "author", "genres", "picture", 5, 12);
 
         when(bookService.findBookByTitle(title)).thenReturn(mockOutput);
         mockMvc.perform(get("/api/book")
@@ -101,7 +101,7 @@ class BookStoreRESTControllerMockTest {
     @Test
     @WithMockUser(roles = {"USER"})
     void testAddBookAsUser() throws Exception {
-        Book newBook = new Book("title", "author", "genres", "picture", 5);
+        Book newBook = new Book("title", "author", "genres", "picture", 5, 12);
         newBook.setId(1L);
 
         String requestJson = ow.writeValueAsString(newBook);
@@ -137,7 +137,7 @@ class BookStoreRESTControllerMockTest {
     @WithMockUser(roles = {"USER"})
     void testUpdateBookAsUser() throws Exception {
         Long id = 1L;
-        Book newBook = new Book("title", "author", "genres", "picture", 5);
+        Book newBook = new Book("title", "author", "genres", "picture", 5, 12);
         String requestJson = ow.writeValueAsString(newBook);
 
         when(bookService.updateBook(id, newBook)).thenReturn(newBook);
@@ -169,7 +169,7 @@ class BookStoreRESTControllerMockTest {
     @Test
     @WithMockUser(roles = {"USER"})
     void testDeleteBookAsUser() throws Exception {
-        Book newBook = new Book("title", "author", "genres", "picture", 5);
+        Book newBook = new Book("title", "author", "genres", "picture", 5, 12);
         when(bookService.deleteBook(1L)).thenReturn(newBook);
         mockMvc.perform(delete("/api/book/admin/1"))
                 .andDo(print())
@@ -179,7 +179,7 @@ class BookStoreRESTControllerMockTest {
     @Test
     @WithMockUser(roles = {"ADMIN"})
     void testDeleteBookAsAdmin() throws Exception {
-        Book newBook = new Book("title", "author", "genres", "picture", 5);
+        Book newBook = new Book("title", "author", "genres", "picture", 5, 12);
         when(bookService.deleteBook(1L)).thenReturn(newBook);
         mockMvc.perform(delete("/api/book/admin/1")
                         .with(csrf()))
