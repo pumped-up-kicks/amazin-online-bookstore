@@ -25,6 +25,10 @@ public class Book {
     @JsonBackReference
     private List<CartItem> cartItem = new ArrayList<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "book")
+    @JsonBackReference
+    private List<PurchasedItem> purchasedItemList = new ArrayList<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,6 +61,12 @@ public class Book {
         this.price = price;
     }
 
+    public Book(Book book) {
+        this(book.title, book.publisher, book.isbn, book.picture, book.inventoryQuantity, book.price);
+        this.id = book.id;
+        this.cartItem = book.cartItem;
+    }
+
     /**
      * Sets the id of the book.
      * @param id the book id.
@@ -87,6 +97,14 @@ public class Book {
      */
     public void setCartItem(List<CartItem> cartItem) {
         this.cartItem = cartItem;
+    }
+
+    public List<PurchasedItem> getPurchasedItemList() {
+        return purchasedItemList;
+    }
+
+    public void setPurchasedItemList(List<PurchasedItem> purchasedItemList) {
+        this.purchasedItemList = purchasedItemList;
     }
 
     /**
@@ -188,5 +206,14 @@ public class Book {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, publisher, isbn, picture);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", inventoryQuantity=" + inventoryQuantity +
+                '}';
     }
 }

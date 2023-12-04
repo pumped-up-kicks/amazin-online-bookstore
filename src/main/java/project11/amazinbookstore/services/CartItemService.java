@@ -9,6 +9,7 @@ import project11.amazinbookstore.model.CartItem;
 import project11.amazinbookstore.model.RegisteredUser;
 import project11.amazinbookstore.repository.CartItemRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,13 +17,17 @@ import java.util.List;
 public class CartItemService{
     private UserService userService;
     private BookService bookService;
+
+    private PurchasedItemService purchasedItemService;
+
     private CartItemRepository repository;
 
     @Autowired
-    public CartItemService(CartItemRepository repository, UserService userService, BookService bookService) {
+    public CartItemService(CartItemRepository repository, UserService userService, BookService bookService, PurchasedItemService purchasedItemService) {
         this.repository = repository;
         this.userService = userService;
         this.bookService = bookService;
+        this.purchasedItemService = purchasedItemService;
     }
 
     public List<CartItem> addBookToCart(Long bookId, String userName, int quantity){
@@ -79,7 +84,7 @@ public class CartItemService{
     @Transactional
     public Long checkout(String userName){
         List<CartItem> cartItems = findItemsInUserCart(userName);
-
+        RegisteredUser user = userService.findUserByUserName(userName);
         for(CartItem item: cartItems){
             Book orderedBook = item.getBook();
             int orderedAmount = item.getQuantity();
@@ -94,9 +99,9 @@ public class CartItemService{
             int orderedAmount = item.getQuantity();
             int currentInventoryQuantity = orderedBook.getInventoryQuantity();
             orderedBook.setInventoryQuantity(currentInventoryQuantity - orderedAmount);
-        }
 
-        RegisteredUser user = userService.findUserByUserName(userName);
+            purchasedItemService.addPurchasedItemToHistory(user, orderedBook, orderedAmount);
+        }
 
         for(CartItem items: user.getCartItem()){
             items.setCustomer(null);
@@ -112,6 +117,8 @@ public class CartItemService{
 
     public List<CartItem> findItemsInUserCart(String username){
         RegisteredUser user = userService.findUserByUserName(username);
-        return repository.findCartItemsByCustomer(user).orElse(null);
+        List<CartItem> items = repository.findCartItemsByCustomer(user).orElse(new ArrayList<>());
+        log.info(items.toString());
+        return items;
     }
 }

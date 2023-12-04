@@ -38,6 +38,10 @@ public class RegisteredUser implements UserDetails {
     @JsonManagedReference
     private List<CartItem> cartItem = new ArrayList<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+    @JsonManagedReference
+    private List<PurchasedItem>purchasedItemList = new ArrayList<>();
+
     /**
      * Creates a RegisteredUser object with the given username, password, and role.
      * @param username the username of the user.
