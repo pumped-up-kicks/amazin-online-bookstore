@@ -52,9 +52,19 @@ public class BookStoreRESTController {
      * @param title the title of the book.
      * @return the corresponding book.
      */
-    @GetMapping
+    @GetMapping(params = "title")
     public Book findBookByTitle(@RequestParam String title) {
         return service.findBookByTitle(title);
+    }
+
+    @GetMapping(params= "isbn")
+    public Book findBookByIsbn(@RequestParam String isbn) {
+        return service.findBookByIsbn(isbn);
+    }
+
+    @GetMapping(params = "publisher")
+    public Book findBookByPublisher(@RequestParam String publisher) {
+        return service.findBookByPublisher(publisher);
     }
 
     /**

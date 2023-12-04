@@ -25,6 +25,10 @@ public class Book {
     @JsonBackReference
     private List<CartItem> cartItem = new ArrayList<>();
 
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "book")
+    @JsonBackReference
+    private List<PurchasedItem> purchasedItemList = new ArrayList<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -93,6 +97,14 @@ public class Book {
      */
     public void setCartItem(List<CartItem> cartItem) {
         this.cartItem = cartItem;
+    }
+
+    public List<PurchasedItem> getPurchasedItemList() {
+        return purchasedItemList;
+    }
+
+    public void setPurchasedItemList(List<PurchasedItem> purchasedItemList) {
+        this.purchasedItemList = purchasedItemList;
     }
 
     /**
