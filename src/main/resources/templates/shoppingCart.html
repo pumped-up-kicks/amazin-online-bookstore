@@ -21,16 +21,11 @@
     <div class="card mw-90 p-3 overflow-auto" style="height: 700px;">
       <div class="card-body">
         <div class="d-flex mw-100 flex-wrap flex-row">
-          <div class="card m-5 h-30 availableBooks" th:each="Book: ${Books}">
-            <div class="card-body">
-              <h5 class="card-title" th:text="${Book.book.getTitle()}"></h5>
-              <p class="card-text" th:text="Quantity +ㅤ+ ${Book.quantity}"></p>
 
-              <form th:action="@{/shoppingcart/delete/{bookId}(bookId=${Book.id})}">
-                <input type="submit" class="btn btn-danger" value="Delete book"/>
-              </form>
-            </div>
+          <div th:each="Book: ${Books}">
+            <div th:replace="common/bookCard :: bookCard(availableBook=${Book}, bookCardDTO=${bookCardDTO})"></div>
           </div>
+
         </div>
       </div>
     </div>
