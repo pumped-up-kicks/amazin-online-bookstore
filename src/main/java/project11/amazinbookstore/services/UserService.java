@@ -12,6 +12,7 @@ import project11.amazinbookstore.model.RegisteredUser;
 import project11.amazinbookstore.model.Role;
 import project11.amazinbookstore.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -81,5 +82,9 @@ public class UserService {
 
     public RegisteredUser findUserByUserName(String username) {
         return userRepository.findByUsername(username).orElse(null);
+    }
+
+    public List<RegisteredUser> findAllUser() {
+        return userRepository.findAll();
     }
 }
