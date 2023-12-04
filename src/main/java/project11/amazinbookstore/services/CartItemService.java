@@ -9,6 +9,7 @@ import project11.amazinbookstore.model.CartItem;
 import project11.amazinbookstore.model.RegisteredUser;
 import project11.amazinbookstore.repository.CartItemRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -112,6 +113,8 @@ public class CartItemService{
 
     public List<CartItem> findItemsInUserCart(String username){
         RegisteredUser user = userService.findUserByUserName(username);
-        return repository.findCartItemsByCustomer(user).orElse(null);
+        List<CartItem> items = repository.findCartItemsByCustomer(user).orElse(new ArrayList<>());
+        log.info(items.toString());
+        return items;
     }
 }
