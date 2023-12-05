@@ -16,7 +16,7 @@
             <p class="card-text color-secondary fw-light" th:text="|ISBN: ${availableBook.isbn}|"></p>
             <p th:if="${!bookCardDTO.isShoppingCartContext() && !bookCardDTO.isPurchaseHistoryContext()}" class="card-text color-secondary fw-light" th:text="|Quantity: ${availableBook.inventoryQuantity}|"></p>
             <p class="card-text color-secondary fw-light" th:text="|Price: ${'&#36;'}${availableBook.price}|"></p>
-            <button type="button" th:if="${!bookCardDTO.authorities.isAdmin() && bookCardDTO.isHomeContext()}" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
+            <button type="button" th:if="${!bookCardDTO.authorities.isAdmin() && (bookCardDTO.isHomeContext() || bookCardDTO.isRecommendationsContext())}" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="${'#bookModalId' + availableBook.id}">
                 Add to cart
             </button>
             <div th:if="${bookCardDTO.isShoppingCartContext()}">
@@ -37,7 +37,7 @@
                             <h1 class="modal-title fs-5" th:id="${'newBookModalLabel' + availableBook.id}" th:text="'Add book ' + ${availableBook.title} + ' to cart'"></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form th:if="${bookCardDTO.isHomeContext()}" th:action="@{/portal/addToCart}" th:object="${bookCardDTO.bookRequest}" method="post">
+                        <form th:if="${bookCardDTO.isHomeContext() || bookCardDTO.isRecommendationsContext()}" th:action="@{'/portal/' + (${bookCardDTO.isRecommendationsContext()} ? 'rec/' : '') + 'addToCart'}" th:object="${bookCardDTO.bookRequest}" method="post">
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <label class="form-label">Quantity</label>

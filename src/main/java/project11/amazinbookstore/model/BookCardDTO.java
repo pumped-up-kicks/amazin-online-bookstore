@@ -15,7 +15,8 @@ public class BookCardDTO {
     public enum Context {
         HOME,
         SHOPPING_CART,
-        PURCHASE_HISTORY
+        PURCHASE_HISTORY,
+        RECOMMENDATIONS
     }
 
     /**
@@ -51,5 +52,13 @@ public class BookCardDTO {
      */
     public boolean isPurchaseHistoryContext() {
         return context == Context.PURCHASE_HISTORY;
+    }
+
+    /**
+     * Check if it is the recommendations context.
+     * @return true if it is the recommendations context.
+     */
+    public boolean isRecommendationsContext() {
+        return context == Context.RECOMMENDATIONS;
     }
 }
