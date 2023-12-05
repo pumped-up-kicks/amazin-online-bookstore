@@ -20,8 +20,7 @@ git config commit.template .github/.gitmessage
 ![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/52aff7cd-8d3c-4596-b3d4-7a100c1e3274)
 
 ## UML Class Diagram
-![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/1903ffba-35c7-4171-99d0-624288ee1c53)
-
+![uml drawio](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/91295489/bc5fc0b1-7468-4f72-a0e0-ebbfcf1803c7)
 
 ## Agile Development Details
 ### Functionality
