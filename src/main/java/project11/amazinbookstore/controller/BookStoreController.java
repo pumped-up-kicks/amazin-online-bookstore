@@ -76,11 +76,25 @@ public class BookStoreController {
     /**
      * Deletes a book corresponding to an id from the database.
      * @param id the id of the book.
-     * @return the removed book.
+     * @return the file containing the page to return to.
      */
     @PostMapping("/admin/portal/delete/{id}")
     public String deleteBook(@PathVariable String id) {
         bookService.deleteBook(Long.parseLong(id));
+        return "redirect:/";
+    }
+
+    /**
+     * Updates the book value corresponding to an id in the database.
+     * @param id the id of the book.
+     * @param updateBook the updated book.
+     * @return the file containing the page to return to.
+     */
+    @PostMapping("/admin/portal/{id}")
+    public String updateBook(@PathVariable String id, @ModelAttribute("book") BookDTO updateBook) {
+        bookService.updateBook(Long.parseLong(id), new Book(updateBook.getTitle(), updateBook.getPublisher(),
+                updateBook.getIsbn(), updateBook.getPicture(), updateBook.getInventoryQuantity(),
+                updateBook.getPrice()));
         return "redirect:/";
     }
 }
