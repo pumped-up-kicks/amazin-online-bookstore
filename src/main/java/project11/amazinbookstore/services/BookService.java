@@ -182,4 +182,11 @@ public class BookService {
         }
         return targetBook;
     }
+
+    public List<Book> searchBooks(String query) {
+        // FIXME: i could search by each field separately and then merge the set, but im lazy
+        List<Book> queryResult = bookRepository.findByTitleContainingOrIsbnContainingOrPublisherContaining(query, query, query).orElse(null);
+        log.info("Found books: " + queryResult);
+        return queryResult;
+    }
 }

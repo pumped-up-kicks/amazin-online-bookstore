@@ -5,7 +5,7 @@ $(document).ready(function () {
     $('#search-bar').on('input', function (e) {
         console.log('input changed');
         let inputContent = $(this).val();
-        let url = '/api/book?title=' + inputContent;
+        let url = '/api/book/search?query=' + inputContent;
         console.log(inputContent);
         // fetch data
 
@@ -13,6 +13,7 @@ $(document).ready(function () {
         $.get(url, function (data, status) {
             console.log(data);
             console.log(status);
+
         });
     });
 })

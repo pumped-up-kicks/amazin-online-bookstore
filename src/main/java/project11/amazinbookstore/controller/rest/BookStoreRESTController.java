@@ -67,6 +67,11 @@ public class BookStoreRESTController {
         return service.findBookByPublisher(publisher);
     }
 
+    @GetMapping(value = "/search", params = "query")
+    public List<Book> searchBooks(@RequestParam String query) {
+        return service.searchBooks(query);
+    }
+
     /**
      * Gives the service a book to add to its database.
      * @param book the book to add.
