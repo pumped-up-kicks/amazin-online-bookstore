@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $('#search-bar').on('input', function (e) {
         console.log('input changed');
-        let inputContent = $('#search-bar').val();
+        let inputContent = $(this).val();
         let url = '/api/book?title=' + inputContent;
         console.log(inputContent);
         // fetch data
