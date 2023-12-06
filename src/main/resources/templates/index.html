@@ -17,6 +17,9 @@
 <div th:if="${param.emptyCartCheckout}" class="alert alert-warning p-2 mb-3 text-dark col-6 align-middle w-50 offset-3">
     <div class="card-text">No items were checked out. Cart is empty.</div>
 </div>
+<div th:if="${param.duplicateIsbn}" class="alert alert-warning p-2 mb-3 text-dark col-6 align-middle w-50 offset-3">
+    <div class="card-text">Error creating/updating book. Duplicate ISBN.</div>
+</div>
 
 <div class="p-3 w-100">
     <h2 class="card-title">Welcome to the Amazin Book Store</h2>
