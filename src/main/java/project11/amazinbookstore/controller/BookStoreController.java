@@ -68,7 +68,10 @@ public class BookStoreController {
      */
     @PostMapping("/admin/portal/add")
     public String addBook(@ModelAttribute("book") BookDTO book) {
-        bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity(), book.getPrice()));
+        Book addedBook = bookService.addBook(new Book(book.getTitle(), book.getPublisher(), book.getIsbn(), book.getPicture(), book.getInventoryQuantity(), book.getPrice()));
+        if (addedBook == null) {
+            return "redirect:/?duplicateIsbn";
+        }
         return "redirect:/";
     }
 
@@ -92,9 +95,12 @@ public class BookStoreController {
      */
     @PostMapping("/admin/portal/{id}")
     public String updateBook(@PathVariable String id, @ModelAttribute("book") BookDTO updateBook) {
-        bookService.updateBook(Long.parseLong(id), new Book(updateBook.getTitle(), updateBook.getPublisher(),
+        Book updatedBook = bookService.updateBook(Long.parseLong(id), new Book(updateBook.getTitle(), updateBook.getPublisher(),
                 updateBook.getIsbn(), updateBook.getPicture(), updateBook.getInventoryQuantity(),
                 updateBook.getPrice()));
+        if (updatedBook == null) {
+            return "redirect:/?duplicateIsbn";
+        }
         return "redirect:/";
     }
 }
