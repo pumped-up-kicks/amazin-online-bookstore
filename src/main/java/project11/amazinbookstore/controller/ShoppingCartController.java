@@ -57,6 +57,11 @@ public class ShoppingCartController {
     @RequestMapping("/shoppingcart/checkout")
     public String checkout() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (cartItemService.isCartEmpty(username)) {
+            return "redirect:/?emptyCartCheckout";
+        }
+
         Long bookId = cartItemService.checkout(username);
 
         if (bookId == 0L){
