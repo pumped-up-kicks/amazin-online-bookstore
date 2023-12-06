@@ -135,4 +135,9 @@ public class CartItemService{
 
         return totalCartPrice;
     }
+
+    public boolean isCartEmpty(String username) {
+        List<CartItem> items = findItemsInUserCart(username);
+        return items.isEmpty();
+    }
 }
