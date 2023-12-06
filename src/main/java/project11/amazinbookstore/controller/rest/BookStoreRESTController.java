@@ -1,8 +1,13 @@
 package project11.amazinbookstore.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import project11.amazinbookstore.model.AuthoritiesDTO;
 import project11.amazinbookstore.model.Book;
+import project11.amazinbookstore.model.BookCardDTO;
 import project11.amazinbookstore.services.BookService;
 
 import java.util.List;
@@ -65,6 +70,17 @@ public class BookStoreRESTController {
     @GetMapping(params = "publisher")
     public Book findBookByPublisher(@RequestParam String publisher) {
         return service.findBookByPublisher(publisher);
+    }
+
+    @GetMapping(value = "/search", params = "query")
+    public ModelAndView searchBooks(@RequestParam String query) {
+        ModelAndView modelAndView = new ModelAndView("common/bookCards");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AuthoritiesDTO authorities = new AuthoritiesDTO(auth);
+        modelAndView.addObject("bookCardDTO", new BookCardDTO(auth, BookCardDTO.Context.HOME));
+        modelAndView.addObject("authorities", authorities);
+        modelAndView.addObject("availableBooks", service.searchBooks(query));
+        return modelAndView;
     }
 
     /**
