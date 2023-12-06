@@ -1,6 +1,7 @@
 package project11.amazinbookstore.model;
 
 public class BookDTO {
+    private Long id;
     private String title;
     private String publisher;
     private String isbn;

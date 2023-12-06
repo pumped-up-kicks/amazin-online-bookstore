@@ -61,6 +61,7 @@
                         </div>
                         <form th:if="${bookCardDTO.isHomeContext()}" th:action="@{'/admin/portal/' + ${availableBook.id}}" th:object="${book}" method="post">
                             <div class="modal-body">
+                                <input type="hidden" th:value="${availableBook.id}" name="id" />
                                 <div class="row mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Title</label>
                                     <input type="text" class="form-control" th:id="title" th:name="title" th:value="${availableBook.title}"/>
