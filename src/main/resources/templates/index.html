@@ -28,7 +28,7 @@
     <div th:replace="common/searchBar :: searchBar"></div>
     <div class="card h-100 mw-90 p-3 overflow-auto" style="height: 600px;">
         <div class="card-body">
-            <div class="d-flex mw-100 flex-wrap flex-row">
+            <div class="d-flex mw-100 flex-wrap flex-row" id="search-results-block">
                 <!-- Loop each book, render bookCard -->
                 <div th:replace="common/bookCards :: bookCards(availableBooks=${availableBooks}, bookCardDTO=${bookCardDTO})"></div>
             </div>

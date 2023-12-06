@@ -7,8 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project11.amazinbookstore.model.Book;
 import project11.amazinbookstore.repository.BookRepository;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Service for interactions with the repository of books.
@@ -185,8 +184,19 @@ public class BookService {
 
     public List<Book> searchBooks(String query) {
         // FIXME: i could search by each field separately and then merge the set, but im lazy
-        List<Book> queryResult = bookRepository.findByTitleContainingOrIsbnContainingOrPublisherContaining(query, query, query).orElse(null);
-        log.info("Found books: " + queryResult);
-        return queryResult;
+        List<Book> titleQueryResult, isbnQueryResult, publisherQueryResult;
+        Set<Book> querySet = new HashSet<>();
+
+        titleQueryResult = bookRepository.findByTitleContainingIgnoreCase(query).orElse(new ArrayList<>());
+        isbnQueryResult = bookRepository.findByIsbnContainsIgnoreCase(query).orElse(new ArrayList<>());
+        publisherQueryResult = bookRepository.findByPublisherContainsIgnoreCase(query).orElse(new ArrayList<>());
+
+        // merge the 3 sets
+        querySet.addAll(titleQueryResult);
+        querySet.addAll(isbnQueryResult);
+        querySet.addAll(publisherQueryResult);
+        log.info("Query: " + query);
+        log.info("Found books: " + querySet);
+        return querySet.stream().toList();
     }
 }
