@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import project11.amazinbookstore.model.BookRequestDTO;
@@ -30,9 +32,14 @@ public class CartItemController {
     }
 //    @PostMapping(value = "/portal/addToCart", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping("/portal/addToCart")
-    public String addToCart(@ModelAttribute("bookRequest") BookRequestDTO requestDTO) {
+    public String addToCart(@ModelAttribute("bookRequest") BookRequestDTO requestDTO, Errors errors) {
         List<CartItem> result;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (errors.hasErrors()) {
+            return "redirect:/?addToCartError";
+        }
+
         result = cartItemService.addBookToCart(requestDTO.getBookId(), auth.getName(), requestDTO.getQuantity());
         if (result != null) {
             log.info(result.toString());
