@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import project11.amazinbookstore.model.AuthoritiesDTO;
 import project11.amazinbookstore.model.Book;
 import project11.amazinbookstore.model.BookCardDTO;
+import project11.amazinbookstore.model.BookDTO;
 import project11.amazinbookstore.services.BookService;
 
 import java.util.List;
@@ -77,6 +78,7 @@ public class BookStoreRESTController {
         ModelAndView modelAndView = new ModelAndView("common/bookCards");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AuthoritiesDTO authorities = new AuthoritiesDTO(auth);
+        modelAndView.addObject("book", new BookDTO());
         modelAndView.addObject("bookCardDTO", new BookCardDTO(auth, BookCardDTO.Context.HOME));
         modelAndView.addObject("authorities", authorities);
         modelAndView.addObject("availableBooks", service.searchBooks(query));
