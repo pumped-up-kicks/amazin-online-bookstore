@@ -117,11 +117,16 @@ public class BookService {
 
         if (existedBook != null) {
             String updatedTitle = updatedBook.getTitle();
-            String updatedAuthor = updatedBook.getPublisher();
-            String updatedGenres = updatedBook.getIsbn();
+            String updatedPublisher = updatedBook.getPublisher();
+            String updatedIsbn = updatedBook.getIsbn();
             String updatedPicture = updatedBook.getPicture();
             int updatedInventoryQuantity = updatedBook.getInventoryQuantity();
             int updatedPrice = updatedBook.getPrice();
+
+            if (bookRepository.findByIsbn(updatedIsbn).orElse(null) != null) {
+                // book with isbn already exists, fucky wucky!
+                return null;
+            }
 
             // For update we will check if the updated value is not null, empty and updated value is not the same as old one
             if (updatedTitle != null &&
@@ -131,18 +136,18 @@ public class BookService {
                 log.info("Successfully updated title " + updatedTitle);
             }
 
-            if (updatedAuthor != null &&
-                    !updatedAuthor.isEmpty() &&
-                    !Objects.equals(updatedAuthor, existedBook.getPublisher())) {
-                existedBook.setPublisher(updatedAuthor);
-                log.info("Successfully updated author " + updatedAuthor);
+            if (updatedPublisher != null &&
+                    !updatedPublisher.isEmpty() &&
+                    !Objects.equals(updatedPublisher, existedBook.getPublisher())) {
+                existedBook.setPublisher(updatedPublisher);
+                log.info("Successfully updated author " + updatedPublisher);
             }
 
-            if (updatedGenres != null &&
-                    !updatedGenres.isEmpty() &&
-                    !Objects.equals(updatedGenres, existedBook.getIsbn())) {
-                existedBook.setIsbn(updatedGenres);
-                log.info("Successfully updated genres " + updatedGenres);
+            if (updatedIsbn != null &&
+                    !updatedIsbn.isEmpty() &&
+                    !Objects.equals(updatedIsbn, existedBook.getIsbn())) {
+                existedBook.setIsbn(updatedIsbn);
+                log.info("Successfully updated genres " + updatedIsbn);
             }
 
             if (updatedPicture != null &&
