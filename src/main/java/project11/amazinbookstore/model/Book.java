@@ -67,6 +67,11 @@ public class Book {
         this.cartItem = book.cartItem;
     }
 
+    public Book(BookDTO bookDTO) {
+        this(bookDTO.getTitle(), bookDTO.getPublisher(), bookDTO.getIsbn(), bookDTO.getPicture(), bookDTO.getInventoryQuantity(), bookDTO.getPrice());
+        this.id = bookDTO.getId();
+    }
+
     /**
      * Sets the id of the book.
      * @param id the book id.

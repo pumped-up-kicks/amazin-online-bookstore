@@ -1,6 +1,7 @@
 package project11.amazinbookstore.model;
 
 public class BookDTO {
+    private Long id;
     private String title;
     private String publisher;
     private String isbn;
@@ -125,5 +126,13 @@ public class BookDTO {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

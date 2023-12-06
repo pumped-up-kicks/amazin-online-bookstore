@@ -123,8 +123,14 @@ public class BookService {
             int updatedInventoryQuantity = updatedBook.getInventoryQuantity();
             int updatedPrice = updatedBook.getPrice();
 
-            if (bookRepository.findByIsbn(updatedIsbn).orElse(null) != null) {
+            Book bookByIsbn = bookRepository.findByIsbn(updatedIsbn).orElse(null);
+            if (bookByIsbn != null && !bookId.equals(bookByIsbn.getId())) {
                 // book with isbn already exists, fucky wucky!
+                return null;
+            }
+
+            if (updatedPrice < 0 || updatedInventoryQuantity < 0) {
+                log.info("Updated price or inventory quantity is negative.");
                 return null;
             }
 
@@ -157,12 +163,12 @@ public class BookService {
                 log.info("Successfully updated picture " + updatedPicture);
             }
 
-            if (updatedInventoryQuantity > 0 && updatedInventoryQuantity != existedBook.getInventoryQuantity()) {
+            if (updatedInventoryQuantity >= 0 && updatedInventoryQuantity != existedBook.getInventoryQuantity()) {
                 existedBook.setInventoryQuantity(updatedInventoryQuantity);
                 log.info("Successfully updated inventory quantity " + updatedInventoryQuantity);
             }
 
-            if (updatedPrice > 0 && updatedPrice != existedBook.getInventoryQuantity()) {
+            if (updatedPrice >= 0 && updatedPrice != existedBook.getInventoryQuantity()) {
                 existedBook.setPrice(updatedPrice);
                 log.info("Successfully updated price " + updatedPrice);
             }
