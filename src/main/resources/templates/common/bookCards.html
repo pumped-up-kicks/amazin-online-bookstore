@@ -1,3 +1,0 @@
-<div th:fragment="bookCards(availableBooks, bookCardDTO)" th:each="availableBook: ${availableBooks}">
-  <div th:replace="common/bookCard :: bookCard(availableBook=${availableBook}, bookCardDTO=${bookCardDTO})"></div>
-</div>
