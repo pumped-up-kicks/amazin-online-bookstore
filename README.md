@@ -17,7 +17,7 @@ git config commit.template .github/.gitmessage
 ```
 
 ## Database Schema
-![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/52aff7cd-8d3c-4596-b3d4-7a100c1e3274)
+![image](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/76576373/3aca082d-50ad-4d89-a415-bb17690ac3b2)
 
 ## UML Class Diagram
 ![uml drawio](https://github.com/pumped-up-kicks/amazin-online-bookstore/assets/91295489/bc5fc0b1-7468-4f72-a0e0-ebbfcf1803c7)
@@ -46,9 +46,9 @@ These features will be available next Sprint:
 - View cart items (DONE)
 - Remove items completely from cart (DONE)
 - Checkout functionality (DONE)
-- See their purchase history 
-- See a recommendations page
-- Change quantities to remove items in cart
+- See their purchase history (DONE)
+- See a recommendations page (DONE)
+- Book have price and total price when checkout (DONE)
 
 ### Development and release process
 The project must have a main branch, and each contributor should create a new branch for each of the
