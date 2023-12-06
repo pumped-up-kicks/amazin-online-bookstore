@@ -29,6 +29,12 @@
                     <li th:if="${authorities.isUser()}" class="nav-item">
                         <a class="nav-link" href="/shoppingcart">Shopping Cart</a>
                     </li>
+                    <li th:if="${authorities.isUser()}" class="nav-item">
+                        <a class="nav-link" href="/purchasehistory">Purchase History</a>
+                    </li>
+                    <li th:if="${authorities.isUser()}" class="nav-item">
+                        <a class="nav-link" href="/recommendations">Recommendations</a>
+                    </li>
                 </ul>
             </div>
         </nav>

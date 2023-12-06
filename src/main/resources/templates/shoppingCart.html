@@ -17,7 +17,7 @@
 
 <div class="p-3 w-100">
   <div class="card-body">
-    <h2 class="card-title">Shopping Cart</h2>
+    <h2 class="card-title mb-3">Shopping Cart</h2>
     <div class="card mw-90 p-3 overflow-auto" style="height: 700px;">
       <div class="card-body">
         <div class="d-flex mw-100 flex-wrap flex-row">
@@ -29,10 +29,10 @@
         </div>
       </div>
     </div>
-    <form th:action="@{/shoppingcart/checkout}" style="float: right">
+    <form th:action="@{/shoppingcart/checkout}" style="float: right;">
       <input type="submit" class="btn btn-primary" value="Checkout"/>
     </form>
-    <form th:action="@{/shoppingcart/cancel}" th:method="get" style="float: right">
+    <form th:action="@{/shoppingcart/cancel}" th:method="get" style="float: right;">
       <input type="submit" class="btn btn-danger" value="Cancel"/>
     </form>
   </div>

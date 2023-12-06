@@ -35,6 +35,11 @@ public class ItemRecommendationService {
 
     private double jaccardIndex(HashSet<String> s1, HashSet<String> s2)
     {
+        // Prevent users with exactly the same purchases (and nothing new) from being chosen.
+        if (s1.equals(s2)) {
+            return 0;
+        }
+
         // Sizes of both the sets
         int sizeS1 = s1.size();
         int sizeS2 = s2.size();
@@ -91,25 +96,30 @@ public class ItemRecommendationService {
         }
 
         Double shortestJaccardDistanceToTarget = 1D;
-        RegisteredUser mostSimilarUserComparedToTarget = null;
+        List<RegisteredUser> mostSimilarUsersComparedToTarget = new ArrayList<>();
         List<Book> recommendedBookList = new ArrayList<>();
 
         for (Map.Entry<RegisteredUser, Double> entry : allUserJaccardDistanceToTarget.entrySet()) {
-            if (entry.getValue() < shortestJaccardDistanceToTarget){
+            if (Math.abs(entry.getValue() - shortestJaccardDistanceToTarget) < 0.001) {
+                mostSimilarUsersComparedToTarget.add(entry.getKey());
+            } else if (entry.getValue() < shortestJaccardDistanceToTarget){
                 shortestJaccardDistanceToTarget = entry.getValue();
-                mostSimilarUserComparedToTarget = entry.getKey();
+                mostSimilarUsersComparedToTarget = new ArrayList<>();
+                mostSimilarUsersComparedToTarget.add(entry.getKey());
             }
         }
 
         // If there is not even a single similar user, return an empty list
-        if (mostSimilarUserComparedToTarget == null){
+        if (mostSimilarUsersComparedToTarget.isEmpty()){
             return recommendedBookList;
         }
 
-        List<PurchasedItem> mostSimilarUserPurchaseHistory = mostSimilarUserComparedToTarget.getPurchasedItemList();
         List<Book> mostSimilarUserPurchasedBook = new ArrayList<>();
-        for (PurchasedItem item: mostSimilarUserPurchaseHistory){
-            mostSimilarUserPurchasedBook.add(item.getBook());
+        for (RegisteredUser mostSimilarUserComparedToTarget : mostSimilarUsersComparedToTarget) {
+            List<PurchasedItem> mostSimilarUserPurchaseHistory = mostSimilarUserComparedToTarget.getPurchasedItemList();
+            for (PurchasedItem item : mostSimilarUserPurchaseHistory) {
+                mostSimilarUserPurchasedBook.add(item.getBook());
+            }
         }
 
         List<Book> targetUserPurchasedBook = new ArrayList<>();

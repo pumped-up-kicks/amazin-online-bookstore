@@ -41,4 +41,17 @@ public class CartItemController {
             return "redirect:/?addToCartError";
         }
     }
+
+    @PostMapping("/portal/rec/addToCart")
+    public String addToRecCart(@ModelAttribute("bookRequest") BookRequestDTO requestDTO) {
+        List<CartItem> result;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        result = cartItemService.addBookToCart(requestDTO.getBookId(), auth.getName(), requestDTO.getQuantity());
+        if (result != null) {
+            log.info(result.toString());
+            return "redirect:/recommendations";
+        } else {
+            return "redirect:/recommendations?addToCartError";
+        }
+    }
 }
