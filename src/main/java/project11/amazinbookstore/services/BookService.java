@@ -123,7 +123,8 @@ public class BookService {
             int updatedInventoryQuantity = updatedBook.getInventoryQuantity();
             int updatedPrice = updatedBook.getPrice();
 
-            if (bookRepository.findByIsbn(updatedIsbn).orElse(null) != null) {
+            Book bookByIsbn = bookRepository.findByIsbn(updatedIsbn).orElse(null);
+            if (bookByIsbn != null && !bookId.equals(bookByIsbn.getId())) {
                 // book with isbn already exists, fucky wucky!
                 return null;
             }
