@@ -35,7 +35,7 @@
     <form th:action="@{/shoppingcart/cancel}" th:method="get" style="float: right;">
       <input type="submit" class="btn btn-danger" value="Cancel"/>
     </form>
-    <h3><span class="badge bg-secondary" style="float: right" th:text="${'Total price: $' + totalCartPrice}"></span></h3>
+    <h3><span class="badge bg-secondary" style="float: right" th:text="${'Total price: $' + #numbers.formatDecimal(totalCartPrice, 1, 2)}"></span></h3>
   </div>
 </div>
 
