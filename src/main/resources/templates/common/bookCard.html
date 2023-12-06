@@ -63,29 +63,29 @@
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Title</label>
-                                    <input type="text" class="form-control" th:id="*{title}" th:name="*{title}" th:value="${availableBook.title}"/>
+                                    <input type="text" class="form-control" th:id="title" th:name="title" th:value="${availableBook.title}"/>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Publisher</label>
-                                    <input type="text" class="form-control" th:id="*{publisher}" th:name="*{publisher}" placeholder="Publisher" th:value="${availableBook.publisher}"/>
+                                    <input type="text" class="form-control" th:id="publisher" th:name="publisher" placeholder="Publisher" th:value="${availableBook.publisher}"/>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="formGroupExampleInput" class="form-label">ISBN</label>
-                                    <input type="text" class="form-control" th:id="*{isbn}" th:name="*{isbn}"  placeholder="ISBN" th:value="${availableBook.isbn}"/>
+                                    <input type="text" class="form-control" th:id="isbn" th:name="isbn"  placeholder="ISBN" th:value="${availableBook.isbn}"/>
                                 </div>
                                 <div class="row mb-3">
                                     <!-- TODO: Improve this! -->
                                     <label for="formGroupExampleInput" class="form-label">Picture</label>
-                                    <input type="text" class="form-control" th:id="*{picture}" th:name="*{picture}" placeholder="Picture" th:value="${availableBook.picture}"/>
+                                    <input type="text" class="form-control" th:id="picture" th:name="picture" placeholder="Picture" th:value="${availableBook.picture}"/>
                                 </div>
                                 <div class="row mb-3">
                                     <!-- TODO: Improve this! -->
                                     <label for="formGroupExampleInput" class="form-label">Quantity</label>
-                                    <input type="text" class="form-control" th:id="*{inventoryQuantity}" th:name="*{inventoryQuantity}" placeholder="Quantity" th:value="${availableBook.inventoryQuantity}"/>
+                                    <input type="text" class="form-control" th:id="inventoryQuantity" th:name="inventoryQuantity" placeholder="Quantity" th:value="${availableBook.inventoryQuantity}"/>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Price</label>
-                                    <input type="text" class="form-control" th:id="*{price}" th:name="*{price}" placeholder="Price" th:value="${availableBook.price}"/>
+                                    <input type="text" class="form-control" th:id="price" th:name="price" placeholder="Price" th:value="${availableBook.price}"/>
                                 </div>
                             </div>
                             <div class="modal-footer">
