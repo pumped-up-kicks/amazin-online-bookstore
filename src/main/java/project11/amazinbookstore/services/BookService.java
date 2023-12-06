@@ -129,6 +129,11 @@ public class BookService {
                 return null;
             }
 
+            if (updatedPrice < 0 || updatedInventoryQuantity < 0) {
+                log.info("Updated price or inventory quantity is negative.");
+                return null;
+            }
+
             // For update we will check if the updated value is not null, empty and updated value is not the same as old one
             if (updatedTitle != null &&
                     !updatedTitle.isEmpty() &&
@@ -158,12 +163,12 @@ public class BookService {
                 log.info("Successfully updated picture " + updatedPicture);
             }
 
-            if (updatedInventoryQuantity > 0 && updatedInventoryQuantity != existedBook.getInventoryQuantity()) {
+            if (updatedInventoryQuantity >= 0 && updatedInventoryQuantity != existedBook.getInventoryQuantity()) {
                 existedBook.setInventoryQuantity(updatedInventoryQuantity);
                 log.info("Successfully updated inventory quantity " + updatedInventoryQuantity);
             }
 
-            if (updatedPrice > 0 && updatedPrice != existedBook.getInventoryQuantity()) {
+            if (updatedPrice >= 0 && updatedPrice != existedBook.getInventoryQuantity()) {
                 existedBook.setPrice(updatedPrice);
                 log.info("Successfully updated price " + updatedPrice);
             }

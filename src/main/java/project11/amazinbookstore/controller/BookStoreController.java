@@ -97,7 +97,7 @@ public class BookStoreController {
     public String updateBook(@PathVariable String id, @ModelAttribute("book") BookDTO updateBook) {
         Book updatedBook = bookService.updateBook(Long.valueOf(id), new Book(updateBook));
         if (updatedBook == null) {
-            return "redirect:/?duplicateIsbn";
+            return "redirect:/?bookUpdateError";
         }
         return "redirect:/";
     }
