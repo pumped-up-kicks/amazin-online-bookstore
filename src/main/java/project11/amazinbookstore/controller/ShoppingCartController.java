@@ -39,6 +39,7 @@ public class ShoppingCartController {
         AuthoritiesDTO authoritiesDTO = new AuthoritiesDTO(auth);
         model.addAttribute("authorities", authoritiesDTO);
         model.addAttribute("bookCardDTO", new BookCardDTO(auth, BookCardDTO.Context.SHOPPING_CART));
+        model.addAttribute("totalCartPrice", cartItemService.getTotalCartPrice(username));
 
         if (authoritiesDTO.isUser()) {
             return "shoppingCart";

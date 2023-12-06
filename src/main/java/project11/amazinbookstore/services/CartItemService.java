@@ -121,4 +121,18 @@ public class CartItemService{
         log.info(items.toString());
         return items;
     }
+
+    public float getTotalCartPrice(String username) {
+        List<CartItem> items = findItemsInUserCart(username);
+        float totalCartPrice = 0;
+        int quantity, price;
+
+        for (CartItem item : items) {
+            quantity = item.getQuantity();
+            price = item.getBook().getPrice();
+            totalCartPrice += quantity * price;
+        }
+
+        return totalCartPrice;
+    }
 }
